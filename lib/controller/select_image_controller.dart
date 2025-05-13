@@ -19,6 +19,9 @@ class SelectImageController extends GetxController {
       selectPhoto.value = image;
 
 
+
+
+
       
     } catch (e) {
       AppsFunction.flutterToast(msg: AppStrings.noImageSelectedToast);
