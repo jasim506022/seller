@@ -36,7 +36,6 @@ class GridImageListWidget extends StatelessWidget {
           ),
 
           /// Show empty state if no images are selected, otherwise show the grid
-
           child: selectedImages.isEmpty
               ? _buildEmptyState()
               : _buildImageGrid(selectedImages));
@@ -50,7 +49,7 @@ class GridImageListWidget extends StatelessWidget {
     return Center(
       child: Text(
         AppStrings.noImageSelectedToast,
-        style: AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red),
+        style: AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red,fontSize: 20.sp),
       ),
     );
   }

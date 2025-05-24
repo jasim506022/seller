@@ -26,23 +26,18 @@ class AppButton extends StatelessWidget {
       width: width?.w ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            backgroundColor: AppColors.green,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r))),
-        onPressed: () =>
-            NetworkUtils.executeWithInternetCheck(action: () => onPressed()),
+          padding: EdgeInsets.zero,
+          backgroundColor: AppColors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.r),
+          ),
+        ),
+        onPressed:
+            () => NetworkUtils.executeWithInternetCheck(action: onPressed),
 
         /// Ensures button action is only performed if internet is available.
-        child: Text(
-          title,
-          style: AppsTextStyle.button,
-        ),
+        child: Text(title, style: AppsTextStyle.button),
       ),
     );
   }
 }
-/*
-can we are use OnPressed Button With parent threiss ();
-#: Why we doesn't use onpRess (); present threis 
-*/

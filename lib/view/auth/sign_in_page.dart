@@ -87,7 +87,7 @@ class _SignInPageState extends State<SignInPage> {
                   /// Login Button  Button.
                   AuthButton(
                     onPressed: () async {
-                      if (!_formKey.currentState!.validate()) return;
+                      // if (!_formKey.currentState!.validate()) return;
                       await authController.signIn();
                     },
                     label: AppStrings.signInTitle,

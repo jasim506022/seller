@@ -4,10 +4,9 @@ class AppColors {
   /// ------------------------------------------------------------------------
   /// 🎨 Background Colors
   /// ------------------------------------------------------------------------
-  static const Color backgroundLight = Color(0xfffcfcfc); //backgroundLight
-  static const Color backgroundDark = Color(0xff080e1e); //backgroundDark
-  static const Color backgroundHomePageLight =
-      Color(0xfff2f2f8); // backgroundHomePageLight
+  static const Color backgroundLight = Color(0xfffcfcfc);
+  static const Color backgroundDark = Color(0xff080e1e);
+  static const Color homePageBackgroundColor = Color(0xfff2f2f8);
 
   /// ------------------------------------------------------------------------
   /// 🔹 Primary Colors

@@ -53,6 +53,6 @@ class ThemeUtils {
       isDarkTheme ? AppColors.green : AppColors.black;
 
   // Background Color
-  static Color get backgroundColor =>
-      isDarkTheme ? AppColors.backgroundDark : const Color(0xFFF2F2F8);
+  static Color get homePageBackgroundColor =>
+      isDarkTheme ? AppColors.backgroundDark : AppColors.homePageBackgroundColor;
 }

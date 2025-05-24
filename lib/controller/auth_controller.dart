@@ -63,7 +63,7 @@ class AuthController extends GetxController {
       passwordController,
       confirmPasswordController,
       phoneController,
-      nameController
+      nameController,
     ]) {
       controller.clear();
     }
@@ -85,7 +85,8 @@ class AuthController extends GetxController {
     }
 
     // Show a confirmation dialog and wait for the user's response.
-    final bool shouldPop = await Get.dialog<bool>(
+    final bool shouldPop =
+        await Get.dialog<bool>(
           ShowAlertDialog(
             icon: Icons.question_mark_rounded,
             title: AppStrings.exitDialogTitle,
@@ -102,7 +103,7 @@ class AuthController extends GetxController {
   /// Handles user sign-in using email and password.
   Future<void> signIn() async {
     try {
-// Show loading indicator
+      // Show loading indicator
       loadingController.setLoading(true);
       // Retrieve and clean up user input
       final String email = emailController.text.trim();
@@ -112,7 +113,7 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
-// Check if the user's profile exists
+      // Check if the user's profile exists
       if (await repository.isUserProfileExists()) {
         _navigateToMainPage(AppStrings.successSignInMessage);
         resetFields(); // Clear input fields after successful login
@@ -145,7 +146,9 @@ class AuthController extends GetxController {
           ProfileModel profileModel = createUserProfile(user: user);
 
           await repository.createNewUserWithGoogle(
-              user: user, profileModel: profileModel);
+            user: user,
+            profileModel: profileModel,
+          );
 
           _navigateToMainPage(AppStrings.successSignInMessage);
         }
@@ -177,33 +180,34 @@ class AuthController extends GetxController {
 
       // Upload the user's profile image and get the image URL
       String userProfileImageUrl = await repository.uploadUserImage(
-          file: selectImageController.selectPhoto.value!);
+        file: selectImageController.selectPhoto.value!,
+      );
 
       // Register the user with email and password
-      UserCredential userCredential =
-          await repository.registerUserWithEmailAndPassword(
-              email: emailController.text.trim(),
-              password: passwordController.text.trim());
-
-
+      UserCredential userCredential = await repository
+          .registerUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          );
 
       // Create user profile data
       ProfileModel profile = createUserProfile(
-          user: userCredential.user!,
-          userProfileImageUrl: userProfileImageUrl,
-          phoneNumber: phoneController.text.trim(),
-          userName: nameController.text.trim());
+        user: userCredential.user!,
+        userProfileImageUrl: userProfileImageUrl,
+        phoneNumber: phoneController.text.trim(),
+        userName: nameController.text.trim(),
+      );
 
       // Upload user profile data
       repository.saveUserProfile(
-          profileModel: profile, documentId: userCredential.user!.uid);
+        profileModel: profile,
+        documentId: userCredential.user!.uid,
+      );
 
       // Reset the input fields after successful registration
       resetFields();
 
       _navigateToMainPage(AppStrings.signUpSuccessfulToast);
-
-
     } catch (e) {
       // Handle any errors during registration
       _handleError(e);
@@ -214,23 +218,23 @@ class AuthController extends GetxController {
 
   /// Creates a user profile using the provided user data or defaults.
 
-  ProfileModel createUserProfile(
-      {required User user,
-      String? userProfileImageUrl,
-      String? userName,
-      String? phoneNumber}) {
-
+  ProfileModel createUserProfile({
+    required User user,
+    String? userProfileImageUrl,
+    String? userName,
+    String? phoneNumber,
+  }) {
     return ProfileModel(
-        name: userName ?? user.displayName ?? AppStrings.defaultName,
-        earnings: 0.0,
-        status: AppStrings.approved,
-        email: user.email ?? AppStrings.defaultEmail,
-        phone: phoneNumber ?? user.phoneNumber ?? AppStrings.defaultPhone,
-        uid: user.uid,
-        address: "",
-        token: "",
-        imageurl:
-            userProfileImageUrl ?? user.photoURL ?? AppStrings.defaultImage);
+      name: userName ?? user.displayName ?? AppStrings.defaultName,
+      earnings: 0.0,
+      status: AppStrings.approved,
+      email: user.email ?? AppStrings.defaultEmail,
+      phone: phoneNumber ?? user.phoneNumber ?? AppStrings.defaultPhone,
+      uid: user.uid,
+      address: "",
+      token: "",
+      imageurl: userProfileImageUrl ?? user.photoURL ?? AppStrings.defaultImage,
+    );
   }
 
   /// Validates the user input fields and shows appropriate error messages if any field is invalid.
@@ -259,7 +263,8 @@ class AuthController extends GetxController {
     try {
       loadingController.setLoading(true);
       await repository.sendPasswordResetEmail(
-          email: emailController.text.trim());
+        email: emailController.text.trim(),
+      );
       AppsFunction.flutterToast(msg: AppStrings.sendingMailToast);
       Get.toNamed(RoutesName.signInPage);
     } catch (e) {
@@ -301,5 +306,3 @@ class AuthController extends GetxController {
     }
   }
 }
-
-

@@ -18,32 +18,42 @@ class ImagePickerDialog extends StatelessWidget {
     final ManageProductController manageProductController =
         Get.find<ManageProductController>();
     return SimpleDialog(
-      title:
-          Text(AppStrings.selectPhotoTitle, style: AppsTextStyle.dialogTitle),
+      title: Text(
+        AppStrings.selectPhotoTitle,
+        style: AppsTextStyle.dialogTitle,
+      ),
       children: [
-        _buildDialogOption(() {
-          manageProductController.pickProductImage(ImageSource.camera);
-        }, AppStrings.takePhotoCameraTitle),
-        _buildDialogOption(() {
-          manageProductController.pickProductImage(ImageSource.gallery);
-        }, AppStrings.chooseFromGalleryTitle),
+        _buildDialogOption(
+          () => manageProductController.pickProductImage(ImageSource.camera),
+          AppStrings.takePhotoCameraTitle,
+        ),
+        _buildDialogOption(
+          () => manageProductController.pickProductImage(ImageSource.gallery),
+          AppStrings.chooseFromGalleryTitle,
+        ),
         _buildDialogOption(() {}, AppStrings.btnCancel, true),
       ],
     );
   }
 
   /// **Creates an individual dialog option with tap functionality.**
-  SimpleDialogOption _buildDialogOption(VoidCallback onPressed, String title,
-      [bool isCancel = false]) {
+  SimpleDialogOption _buildDialogOption(
+    VoidCallback onPressed,
+    String title, [
+    bool isCancel = false,
+  ]) {
     return SimpleDialogOption(
       onPressed: () {
         Get.back();
         onPressed();
       },
-      child: Text(title,
-          style: isCancel
-              ? AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red)
-              : AppsTextStyle.mediumBoldText),
+      child: Text(
+        title,
+        style:
+            isCancel
+                ? AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red)
+                : AppsTextStyle.mediumBoldText,
+      ),
     );
   }
 }

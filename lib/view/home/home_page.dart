@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Set status bar color
+    /// Set status bar color
     _configureStatusBar();
     return SafeArea(
       child: Scaffold(
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
           children: [
             /// Background color
             Container(
-                height: 1.sh, width: 1.sw, color: ThemeUtils.backgroundColor),
+                height: 1.sh, width: 1.sw, color: ThemeUtils.homePageBackgroundColor),
 
             /// Green Header Background with Curved Borders
             AspectRatio(
@@ -58,7 +58,6 @@ class HomePage extends StatelessWidget {
                       /// Profile Header displaying user info
                       const HomeProfileHeaderStream(),
                       AppsFunction.verticalSpacing(10),
-
                       /// Search Bar for product search functionality
                       _buildSearchBar(context),
                       AppsFunction.verticalSpacing(20),
@@ -95,7 +94,7 @@ class HomePage extends StatelessWidget {
     return SizedBox(
       height: 153.h,
       width: 1.sw,
-      child: GridItemWidet(
+      child: GridItemWidget(
           image: AppImage.uploadProductImage,
           label: AppStrings.updateProductTitle,
           onTap: () => Get.toNamed(RoutesName.uploadAndUpdateProduct)),
@@ -129,10 +128,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-/*
-#: Why do we use safearea?
-#: Understand Clear Stack
-#: Understand AspectRatio clear
-#: Why use expended
-
-*/

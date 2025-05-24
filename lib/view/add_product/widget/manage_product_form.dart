@@ -19,10 +19,7 @@ import 'grid_image_list_widget.dart';
 /// Screen for adding or editing a product.
 /// Uses [GetX] for state management.
 class ManageProductForm extends StatefulWidget {
-  const ManageProductForm({
-    super.key,
-    required this.isEditMode,
-  });
+  const ManageProductForm({super.key, required this.isEditMode});
 
   /// Indicates whether the form is in edit mode.
   final bool isEditMode;
@@ -51,39 +48,40 @@ class _ManageProductFormState extends State<ManageProductForm> {
       onTap: () => FocusScope.of(context).unfocus(), // Dismiss keyboard on tap.
       child: PopScope(
         canPop: false,
-        //Hand Unsave Change On Back
-        onPopInvoked: (didPop) =>
-            manageProductController.handleUnsavedChangesOnBack(didPop),
+        //Hand Unsaved Change On Back
+        onPopInvoked:
+            (didPop) =>
+                manageProductController.handleUnsavedChangesOnBack(didPop),
         child: Scaffold(
-            appBar: _buildAppBar(),
-            body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                child: ListView(
-                  children: [
-                    // Show loading indicator when uploading.
-                    Obx(() {
-                      return manageProductController
-                              .loadingController.loading.value
-                          ? const LinearProgressIndicator()
-                          // Use this to avoid rendering anything when not loading.
-                          : const SizedBox.shrink();
-                    }),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-                      child: Column(
-                        children: [
-                          const GridImageListWidget(),
-                          AppsFunction.verticalSpacing(10),
-                          _buildImagePickerButton(),
-                          AppsFunction.verticalSpacing(20),
-                          _buildProductForm(),
-                          AppsFunction.verticalSpacing(120),
-                        ],
-                      ),
-                    ),
-                  ],
-                ))),
+          appBar: _buildAppBar(),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+            child: ListView(
+              children: [
+                // Show loading indicator when uploading.
+                Obx(() {
+                  return manageProductController.loadingController.loading.value
+                      ? const LinearProgressIndicator()
+                      // Use this to avoid rendering anything when not loading.
+                      : const SizedBox.shrink();
+                }),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  child: Column(
+                    children: [
+                      const GridImageListWidget(),
+                      AppsFunction.verticalSpacing(10),
+                      _buildImagePickerButton(),
+                      AppsFunction.verticalSpacing(20),
+                      _buildProductForm(),
+                      AppsFunction.verticalSpacing(120),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -91,31 +89,35 @@ class _ManageProductFormState extends State<ManageProductForm> {
   /// Builds the app bar with title and upload action.
   AppBar _buildAppBar() {
     return AppBar(
-      title: Text(widget.isEditMode
-          ? AppStrings.updateProductTitle
-          : AppStrings.addNewProductTitle),
+      title: Text(
+        widget.isEditMode
+            ? AppStrings.updateProductTitle
+            : AppStrings.addNewProductTitle,
+      ),
       actions: [
         IconButton(
-            onPressed: () async {
-              if (!_formKey.currentState!.validate()) return;
+          onPressed: () async {
+            if (!_formKey.currentState!.validate()) return;
 
-              NetworkUtils.executeWithInternetCheck(
-                  action: () => manageProductController.saveProduct(
-                      isUpdate: widget.isEditMode));
-            },
-            icon: const Icon(
-              Icons.cloud_upload,
-              color: AppColors.green,
-            ))
+            NetworkUtils.executeWithInternetCheck(
+              action:
+                  () => manageProductController.saveProduct(
+                    isUpdate: widget.isEditMode,
+                  ),
+            );
+          },
+          icon: const Icon(Icons.cloud_upload, color: AppColors.green),
+        ),
       ],
     );
   }
 
   Widget _buildImagePickerButton() {
     return AppButton(
-        title: AppStrings.btnPickImage,
-        onPressed: () =>
-            manageProductController.pickProductImage(ImageSource.gallery));
+      title: AppStrings.btnPickImage,
+      onPressed:
+          () => manageProductController.pickProductImage(ImageSource.gallery),
+    );
   }
 
   Form _buildProductForm() {
@@ -126,11 +128,15 @@ class _ManageProductFormState extends State<ManageProductForm> {
           /// Product Category Selection Dropdown
           CustomDropdownWidget(
             items: AppConstants.categories,
-            value: manageProductController
-                .categoryController.selectedCategory.value,
+            value:
+                manageProductController
+                    .categoryController
+                    .selectedCategory
+                    .value,
             onChanged: (value) {
-              manageProductController.categoryController
-                  .updateCategory(value!.toString());
+              manageProductController.categoryController.updateCategory(
+                value!.toString(),
+              );
               manageProductController.hasProductsChanged(true);
             },
           ),
@@ -138,11 +144,12 @@ class _ManageProductFormState extends State<ManageProductForm> {
 
           /// Product Input Field
           CustomTextFormField(
-              onChanged: (value) => manageProductController.trackInputChanges(),
-              controller: manageProductController.nameController,
-              label: AppStrings.productNameLabel,
-              hintText: AppStrings.productNameHint,
-              validator: Validators.validateProductName),
+            onChanged: (value) => manageProductController.trackInputChanges(),
+            controller: manageProductController.nameController,
+            label: AppStrings.productNameLabel,
+            hintText: AppStrings.productNameHint,
+            validator: Validators.validateProductName,
+          ),
 
           /// Price & Unit Selection Row
           Row(
@@ -153,65 +160,69 @@ class _ManageProductFormState extends State<ManageProductForm> {
                 flex: 6,
                 //  Product Price Input Field
                 child: CustomTextFormField(
-                    onChanged: (value) =>
-                        manageProductController.trackInputChanges(),
-                    controller: manageProductController.priceController,
-                    label: AppStrings.priceLabel,
-                    hintText: AppStrings.productPriceHint,
-                    validator: Validators.validatePrice,
-                    textInputType: TextInputType.number),
+                  onChanged:
+                      (value) => manageProductController.trackInputChanges(),
+                  controller: manageProductController.priceController,
+                  label: AppStrings.priceLabel,
+                  hintText: AppStrings.productPriceHint,
+                  validator: Validators.validatePrice,
+                  textInputType: TextInputType.number,
+                ),
               ),
               AppsFunction.horizontalSpacing(20),
               // Product Unit Selection
               Expanded(
-                  flex: 5,
-                  child: CustomDropdownWidget(
-                    onChanged: (value) {
-                      manageProductController.categoryController
-                          .updateUnit(value!.toString());
-                      manageProductController.hasProductsChanged(true);
-                    },
-                    items: AppConstants.units,
-                    value: manageProductController
-                        .categoryController.selectedUnit.value,
-                  )),
+                flex: 5,
+                child: CustomDropdownWidget(
+                  onChanged: (value) {
+                    manageProductController.categoryController.updateUnit(
+                      value!.toString(),
+                    );
+                    manageProductController.hasProductsChanged(true);
+                  },
+                  items: AppConstants.units,
+                  value:
+                      manageProductController
+                          .categoryController
+                          .selectedUnit
+                          .value,
+                ),
+              ),
             ],
           ),
           // Product Discount Input Field
           CustomTextFormField(
-              onChanged: (value) => manageProductController.trackInputChanges(),
-              controller: manageProductController.discountController,
-              label: AppStrings.discountLabel,
-              hintText: AppStrings.productDiscountHint,
-              validator: Validators.validateDiscount,
-              textInputType: TextInputType.number),
+            onChanged: (value) => manageProductController.trackInputChanges(),
+            controller: manageProductController.discountController,
+            label: AppStrings.discountLabel,
+            hintText: AppStrings.productDiscountHint,
+            validator: Validators.validateDiscount,
+            textInputType: TextInputType.number,
+
+          ),
           // Product Ratting Input Field
           CustomTextFormField(
-              onChanged: (value) => manageProductController.trackInputChanges(),
-              controller: manageProductController.ratingController,
-              hintText: AppStrings.ratingLabel,
-              label: AppStrings.productRatingHint,
-              validator: Validators.validateRating,
-              textInputType: TextInputType.number),
-          // Product Discription Input Field
+            onChanged: (value) => manageProductController.trackInputChanges(),
+            controller: manageProductController.ratingController,
+            hintText: AppStrings.ratingLabel,
+            label: AppStrings.productRatingHint,
+            validator: Validators.validateRating,
+            textInputType: TextInputType.number,
+          ),
+          // Product Description Input Field
           CustomTextFormField(
-              onChanged: (value) => manageProductController.trackInputChanges(),
-              controller: manageProductController.descriptionController,
-              label: AppStrings.descriptionLabel,
-              hintText: AppStrings.productDescriptionHint,
-              validator: Validators.validateProductDescription,
-              textInputType: TextInputType.text,
-              maxLines: 7),
+            onChanged: (value) => manageProductController.trackInputChanges(),
+            controller: manageProductController.descriptionController,
+            label: AppStrings.descriptionLabel,
+            hintText: AppStrings.productDescriptionHint,
+            validator: Validators.validateProductDescription,
+            textInputType: TextInputType.text,
+            maxLines: 7,
+          ),
         ],
       ),
     );
   }
 }
 
-/*
- Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center
-            Understand 
-            #: 
-*/
+

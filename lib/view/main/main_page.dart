@@ -7,7 +7,6 @@ import '../../controller/profile_controller.dart';
 import '../../res/app_string.dart';
 import '../../res/apps_color.dart';
 import '../home/home_page.dart';
-import '../other/local_service.dart';
 import '../other/pushnotification.dart';
 import '../product/product_page.dart';
 import '../profile/profile_page.dart';
@@ -16,16 +15,14 @@ import '../search/search_page.dart';
 /// /// Main application page with a bottom navigation bar.
 /// Handles user profile fetching and notification setup.
 class MainPage extends StatefulWidget {
-  const MainPage({
-    super.key,
-  });
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-// Using late Because ensure that profileController is initialized only after the widget is create.
+  // Using late Because ensure that profileController is initialized only after the widget is create.
   late ProfileController profileController;
 
   /// Stores the currently selected bottom navigation index. (The _currentIndex use means that _currentIndex is private and cann't access outside of this class)
@@ -67,9 +64,12 @@ class _MainPageState extends State<MainPage> {
   @override
   void didChangeDependencies() {
     /// Updates the system UI style (status bar color & icon brightness).
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
         statusBarColor: AppColors.green,
-        statusBarIconBrightness: Theme.of(context).brightness));
+        statusBarIconBrightness: Theme.of(context).brightness,
+      ),
+    );
     super.didChangeDependencies();
   }
 
@@ -99,9 +99,10 @@ class _MainPageState extends State<MainPage> {
   List<SalomonBottomBarItem> _createBottomNavItems() {
     return [
       _buildBottomBarItem(
-          activeIcon: Icons.home,
-          icon: Icons.home_outlined,
-          title: AppStrings.homeTitle),
+        activeIcon: Icons.home,
+        icon: Icons.home_outlined,
+        title: AppStrings.homeTitle,
+      ),
       _buildBottomBarItem(
         activeIcon: Icons.favorite_border,
         icon: Icons.favorite_border_outlined,
@@ -127,22 +128,13 @@ class _MainPageState extends State<MainPage> {
     required String title,
   }) {
     return SalomonBottomBarItem(
-        activeIcon: Icon(activeIcon, color: AppColors.green),
-        icon: Icon(icon),
-        title: Text(title),
-        selectedColor: AppColors.green,
-        unselectedColor: Theme.of(context).unselectedWidgetColor);
+      activeIcon: Icon(activeIcon, color: AppColors.green),
+      icon: Icon(icon),
+      title: Text(title),
+      selectedColor: AppColors.green,
+      unselectedColor: Theme.of(context).unselectedWidgetColor,
+    );
   }
 }
 
 
-/*
-#: Why do we use const:
-#: why do we use final 
-#: When use page and home
-#: final ProfileController profileController = Get.find<ProfileController>(); is better way to declar 
-#: why do we use static 
-#: Profile Controllder (Doesn't Work)
-*/
-
-  

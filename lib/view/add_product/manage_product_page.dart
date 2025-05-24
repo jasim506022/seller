@@ -29,6 +29,7 @@ class _ManageProductPageState extends State<ManageProductPage> {
 
   /// Stores the product being edited (only if in edit mode)
   late ProductModel productModel;
+
   @override
   void initState() {
     // Retrieve arguments passed to the page
@@ -53,19 +54,17 @@ class _ManageProductPageState extends State<ManageProductPage> {
     // Set system UI styles (e.g., status bar and navigation bar appearance)
     AppsFunction.setSystemUIOverlayStyle(context);
 
-// Return a widget based on whether a product has been selected or not
+    // Return a widget based on whether a product has been selected or not
     return Obx(() {
       final isPlaceholderVisible =
           manageProductController.selectedImagesList.isEmpty &&
-              !isEditMode &&
-              !manageProductController.hasProductsChanged.value;
+          !isEditMode &&
+          !manageProductController.hasProductsChanged.value;
 
       // Show placeholder if no product images are selected and the page is in 'add' mode.
       return isPlaceholderVisible
           ? const ProductImagePlaceholder()
-          : ManageProductForm(
-              isEditMode: isEditMode,
-            );
+          : ManageProductForm(isEditMode: isEditMode);
     });
   }
 }

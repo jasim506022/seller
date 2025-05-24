@@ -12,6 +12,7 @@ class SingleImageRemoveWidget extends StatelessWidget {
   const SingleImageRemoveWidget({super.key, required this.index});
 
   final int index;
+
   @override
   Widget build(BuildContext context) {
     /// Access the ManageProductController using GetX
@@ -35,17 +36,21 @@ class SingleImageRemoveWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Theme.of(context).primaryColor, width: 1),
-          ),
-          child: SizedBox(
-            height: 0.25.sh,
-            width: 0.25.sh,
-            child: selectedImage is String
-                ? FancyShimmerImage(
-                    imageUrl: selectedImage, boxFit: BoxFit.contain)
-                : Image.file(File(selectedImage.path), fit: BoxFit.contain),
-          )),
+        decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).primaryColor, width: 1),
+        ),
+        child: SizedBox(
+          height: 0.25.sh,
+          width: 0.25.sh,
+          child:
+              selectedImage is String
+                  ? FancyShimmerImage(
+                    imageUrl: selectedImage,
+                    boxFit: BoxFit.contain,
+                  )
+                  : Image.file(File(selectedImage.path), fit: BoxFit.contain),
+        ),
+      ),
     );
   }
 
@@ -54,7 +59,8 @@ class SingleImageRemoveWidget extends StatelessWidget {
   /// - Supports displaying images from a **URL** (using `FancyShimmerImage`) or **local storage** (`Image.file`).
   /// - Uses `BoxFit.contain` to prevent distortion.
   Positioned _buildRemoveButton(
-      ManageProductController manageProductController) {
+    ManageProductController manageProductController,
+  ) {
     return Positioned(
       top: 2,
       right: 2,
@@ -67,11 +73,7 @@ class SingleImageRemoveWidget extends StatelessWidget {
             color: AppColors.white,
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.close,
-            color: AppColors.red,
-            size: 25.h,
-          ),
+          child: Icon(Icons.close, color: AppColors.red, size: 25.h),
         ),
       ),
     );

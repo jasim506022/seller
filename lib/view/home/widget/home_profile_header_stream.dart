@@ -11,16 +11,11 @@ import 'user_profile_header.dart';
 /// Displays the user's profile header in the home page.
 /// Fetches profile data either from shared preferences (cached) or the API (fallback).
 class HomeProfileHeaderStream extends StatelessWidget {
-  const HomeProfileHeaderStream({
-    super.key,
-  });
+  const HomeProfileHeaderStream({super.key});
 
   @override
   Widget build(BuildContext context) {
-    /// Get the `ProfileController`.
-    final ProfileController profileController = Get.find<ProfileController>();
-
-    // Attempt to fetch locally cached profile data from shared preferences
+    /// Attempt to fetch locally cached profile data from shared preferences
     final profileData = _fetchLocalProfileData();
 
     /// If local profile data is available, use it directly
@@ -33,28 +28,29 @@ class HomeProfileHeaderStream extends StatelessWidget {
     }
 
     /// If no cached data is found, fetch profile from Database
-    return _fetchAndBuildProfile(profileController);
+    return _fetchAndBuildProfile();
   }
 
   /// Fetches the user profile data from shared preferences.
   /// Returns `null` if no valid data is found.
   Map<String, String>? _fetchLocalProfileData() {
-    var pref = AppConstants.sharedPreference;
-    final image = pref?.getString(AppStrings.prefUserProfilePic);
-    final name = pref?.getString(AppStrings.prefUserName);
-    final email = pref?.getString(AppStrings.prefUserEmail);
+    var sharedPreference = AppConstants.sharedPreference!;
+    final image = sharedPreference.getString(AppStrings.prefUserProfilePic);
+    final name = sharedPreference.getString(AppStrings.prefUserName);
+    final email = sharedPreference.getString(AppStrings.prefUserEmail);
 
     /// Ensure all values are valid before returning the cached data
-    if ([image, name, email].every((val) => val?.isNotEmpty ?? false)) {
+    if ([image, name, email].every((data) => data?.isNotEmpty ?? false)) {
       return {'imageUrl': image!, 'name': name!, 'email': email!};
     }
-    return null; // No valid data found
+    return null;
   }
 
   /// Fetches user profile data from API and builds the UI.
-  Widget _fetchAndBuildProfile(ProfileController controller) {
+  Widget _fetchAndBuildProfile() {
+    final ProfileController profileController = Get.find<ProfileController>();
     return FutureBuilder(
-      future: controller.fetchUserProfile(),
+      future: profileController.fetchUserProfile(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingProfileHeaderWidget();
@@ -75,23 +71,9 @@ class HomeProfileHeaderStream extends StatelessWidget {
       },
     );
   }
+
+
 }
 
-/*
-#: Why doesn't Use Stream builder why use where is Future Builder
-#: Understand Clear Null (?. and !)
-#: Understand Profile Controller  (FetchUserProfileStream)
-#: Why use Future Builder Why no StreamBuilder
-#: Separation of Concerns (SoC)
-#:
-why use it if ([image, name, email].every((val) => val?.isNotEmpty ?? false)) {
-      return {'imageUrl': image!, 'name': name!, 'email': email!};
-    }
-    instead of 
-if ((image?.isNotEmpty ?? false) &&
-        (name?.isNotEmpty ?? false) &&
-        (email?.isNotEmpty ?? false)) {
-      return {'imageUrl': image!, 'name': name!, 'email': email!};
-    }
-    why use
-*/
+
+

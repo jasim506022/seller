@@ -34,7 +34,7 @@ Future<void> _loadSharedPreferences() async {
 
 // Check onboarding status
     AppConstants.isViewed =
-        AppConstants.sharedPreference?.getInt(AppStrings.prefOnboarding)??0;
+        AppConstants.sharedPreference!.getInt(AppStrings.prefOnboarding)??0;
   } catch (e) {
     developer.log("Error loading SharedPreferences: $e");
   }
