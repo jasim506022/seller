@@ -36,7 +36,8 @@ class DetailsPageImageSlideWithCartBridgeWidget extends StatelessWidget {
                   AppsFunction.verticalSpacing(10),
                   _buildTopBar(),
                   ProductImageSwiperWidget(
-                      imageUrls: productModel.productimage!),
+                    imageUrls: productModel.productimage!,
+                  ),
                   AppsFunction.verticalSpacing(10),
                 ],
               ),
@@ -47,8 +48,8 @@ class DetailsPageImageSlideWithCartBridgeWidget extends StatelessWidget {
     );
   }
 
-  // This method builds the background circles
-  // Consolidating circle configuration into a list of maps for better readability and maintainability.
+  /// This method builds the background circles
+  /// Consolidating circle configuration into a list of maps for better readability and maintainability.
   List<Widget> _buildBackgroundCircles() {
     List<Map<String, dynamic>> circleConfig = [
       {
@@ -56,21 +57,21 @@ class DetailsPageImageSlideWithCartBridgeWidget extends StatelessWidget {
         'right': -300.00.w,
         'top': -350.00.h,
         'size': 650.00.h,
-        'color': ThemeUtils.green100
+        'color': ThemeUtils.green100,
       },
       {
         'left': -80.00.w,
         'right': -80.00.w,
         'top': -360.00.h,
         'size': 650.00.h,
-        'color': ThemeUtils.green200
+        'color': ThemeUtils.green200,
       },
       {
         'left': 0.00,
         'right': 0.00,
         'top': -150.00.w,
         'size': 300.00.h,
-        'color': ThemeUtils.green300
+        'color': ThemeUtils.green300,
       },
     ];
 
@@ -91,7 +92,7 @@ class DetailsPageImageSlideWithCartBridgeWidget extends StatelessWidget {
     }).toList();
   }
 
-  // This method builds the top bar with back and cart buttons
+  /// This method builds the top bar with back and cart buttons
   Widget _buildTopBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,32 +102,34 @@ class DetailsPageImageSlideWithCartBridgeWidget extends StatelessWidget {
           child: InkWell(
             onTap: () => Get.back(),
             child: _buildCircularButton(
-              const Icon(Icons.arrow_back_ios,
-                  color: AppColors.white, size: 25),
+              const Icon(
+                Icons.arrow_back_ios,
+                color: AppColors.white,
+                size: 25,
+              ),
             ),
           ),
         ),
         InkWell(
-            onTap: () {},
-            child: _buildCircularButton(
-                ProductOptionsMenu(productModel: productModel)))
+          onTap: () {},
+          child: _buildCircularButton(
+            ProductOptionsMenu(productModel: productModel),
+          ),
+        ),
       ],
     );
   }
 
-// Creates a circular button with the given widget inside it
+  /// Creates a circular button with the given widget inside it
   Container _buildCircularButton(Widget widget) {
     return Container(
-        height: 50.h,
-        width: 50.h,
-        decoration: const BoxDecoration(
-          color: AppColors.green,
-          shape: BoxShape.circle,
-        ),
-        child: widget);
+      height: 50.h,
+      width: 50.h,
+      decoration: const BoxDecoration(
+        color: AppColors.green,
+        shape: BoxShape.circle,
+      ),
+      child: widget,
+    );
   }
 }
-
-/*
-Undersand Background
-*/

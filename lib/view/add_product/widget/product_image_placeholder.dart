@@ -27,7 +27,7 @@ class ProductImagePlaceholder extends StatelessWidget {
               width: .7.sw,
               title: AppStrings.btnAddProductImage,
 
-              /// **Opens the Image Selection Dialog**
+              // **Opens the Image Selection Dialog**
               onPressed:
                   () async => await Get.dialog(const ImagePickerDialog()),
             ),

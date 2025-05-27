@@ -23,28 +23,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Set status bar color
+    // Set status bar color
     _configureStatusBar();
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            /// Background color
+            // Background color
             Container(
-                height: 1.sh, width: 1.sw, color: ThemeUtils.homePageBackgroundColor),
+              height: 1.sh,
+              width: 1.sw,
+              color: ThemeUtils.homePageBackgroundColor,
+            ),
 
-            /// Green Header Background with Curved Borders
+            // Green Header Background with Curved Borders
             AspectRatio(
-                aspectRatio: 16 / 11,
-                child: Container(
-                    decoration: BoxDecoration(
+              aspectRatio: 16 / 11,
+              child: Container(
+                decoration: BoxDecoration(
                   color: AppColors.green,
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(60.r),
-                      bottomRight: Radius.circular(60.r)),
-                ))),
+                    bottomLeft: Radius.circular(60.r),
+                    bottomRight: Radius.circular(60.r),
+                  ),
+                ),
+              ),
+            ),
 
-            /// Main Content Section
+            // Main Content Section
             SingleChildScrollView(
               child: SizedBox(
                 height: 1.sh,
@@ -55,26 +61,25 @@ class HomePage extends StatelessWidget {
                     children: [
                       AppsFunction.verticalSpacing(10),
 
-                      /// Profile Header displaying user info
+                      // Profile Header displaying user info
                       const HomeProfileHeaderStream(),
                       AppsFunction.verticalSpacing(10),
-                      /// Search Bar for product search functionality
+                      // Search Bar for product search functionality
                       _buildSearchBar(context),
                       AppsFunction.verticalSpacing(20),
 
-                      /// Upload Product Section as a Grid Item
-
+                      // Upload Product Section as a Grid Item
                       _buildUploadProductTile(),
 
                       AppsFunction.verticalSpacing(15),
 
-                      /// Dashboard Grid View - Displays main dashboard options
+                      // Dashboard Grid View - Displays main dashboard options
                       const Expanded(child: DashboardGridWidget()),
                     ],
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -83,10 +88,13 @@ class HomePage extends StatelessWidget {
 
   /// Configures the status bar appearance, setting the color and icon brightness.
   void _configureStatusBar() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: AppColors.green,
         statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light));
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
   }
 
   /// Builds a tile for uploading a product, allowing users to navigate to the upload screen.
@@ -95,9 +103,10 @@ class HomePage extends StatelessWidget {
       height: 153.h,
       width: 1.sw,
       child: GridItemWidget(
-          image: AppImage.uploadProductImage,
-          label: AppStrings.updateProductTitle,
-          onTap: () => Get.toNamed(RoutesName.uploadAndUpdateProduct)),
+        image: AppImage.uploadProductImage,
+        label: AppStrings.updateProductTitle,
+        onTap: () => Get.toNamed(RoutesName.uploadAndUpdateProduct),
+      ),
     );
   }
 
@@ -110,8 +119,9 @@ class HomePage extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 15.w),
         width: 1.sw,
         decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: BorderRadius.circular(15.r)),
+          color: Theme.of(context).canvasColor,
+          borderRadius: BorderRadius.circular(15.r),
+        ),
         child: Padding(
           padding: EdgeInsets.only(left: 25.w),
           child: Row(
@@ -119,7 +129,7 @@ class HomePage extends StatelessWidget {
               Text(AppStrings.searchHint, style: AppsTextStyle.hintText),
               const Spacer(),
               const Icon(IconlyLight.search),
-              AppsFunction.horizontalSpacing(20)
+              AppsFunction.horizontalSpacing(20),
             ],
           ),
         ),
@@ -127,4 +137,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

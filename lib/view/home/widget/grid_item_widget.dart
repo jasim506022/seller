@@ -24,7 +24,7 @@ class GridItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      /// Execute the provided function only if there's internet connectivity
+      // Execute the provided function only if there's internet connectivity
       onTap:
           () async =>
               await NetworkUtils.executeWithInternetCheck(action: onTap),
@@ -38,7 +38,7 @@ class GridItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /// Display the image with specified dimensions and color tint
+            // Display the image with specified dimensions and color tint
             Image.asset(
               image,
               height: 70.h,

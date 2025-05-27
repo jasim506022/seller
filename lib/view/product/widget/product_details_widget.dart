@@ -8,10 +8,7 @@ import '../../../res/apps_text_style.dart';
 
 /// A widget that displays product details including name, description, price, and rating.
 class ProductDetailsWidget extends StatelessWidget {
-  const ProductDetailsWidget({
-    super.key,
-    required this.product,
-  });
+  const ProductDetailsWidget({super.key, required this.product});
 
   final ProductModel product;
 
@@ -26,9 +23,11 @@ class ProductDetailsWidget extends StatelessWidget {
         // Price section: displays the discounted price and the original price with discount percentage
         _buildPriceRow(),
         AppsFunction.verticalSpacing(15),
-        Text(product.productdescription!,
-            textAlign: TextAlign.justify,
-            style: AppsTextStyle.mediumNormalText),
+        Text(
+          product.productdescription!,
+          textAlign: TextAlign.justify,
+          style: AppsTextStyle.mediumNormalText,
+        ),
         AppsFunction.verticalSpacing(20),
         _buildRatingBar(context),
         AppsFunction.verticalSpacing(20),
@@ -39,25 +38,27 @@ class ProductDetailsWidget extends StatelessWidget {
   /// Builds a row displaying the product price, discounted price, and discount percentage
   Row _buildPriceRow() {
     String discountedPrice = AppsFunction.getDiscountedPrice(
-            product.productprice!, product.discount!.toDouble())
-        .toStringAsFixed(2);
+      product.productprice!,
+      product.discount!.toDouble(),
+    ).toStringAsFixed(2);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Display the discounted price with currency symbol and unit
         RichText(
-            text: TextSpan(
-          children: [
-            TextSpan(
-              text: "${AppStrings.currencyIcon} $discountedPrice ",
-              style: AppsTextStyle.titleText.copyWith(color: AppColors.red),
-            ),
-            TextSpan(
-              text: product.productunit,
-              style: AppsTextStyle.mediumBoldText,
-            ),
-          ],
-        )),
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "${AppStrings.currencyIcon} $discountedPrice ",
+                style: AppsTextStyle.titleText.copyWith(color: AppColors.red),
+              ),
+              TextSpan(
+                text: product.productunit,
+                style: AppsTextStyle.mediumBoldText,
+              ),
+            ],
+          ),
+        ),
 
         // Display the original price and discount percentage
         RichText(
@@ -65,8 +66,9 @@ class ProductDetailsWidget extends StatelessWidget {
             children: [
               TextSpan(
                 text: "${AppStrings.discountLabel}: ${product.discount!}% ",
-                style:
-                    AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red),
+                style: AppsTextStyle.mediumBoldText.copyWith(
+                  color: AppColors.red,
+                ),
               ),
               WidgetSpan(child: AppsFunction.horizontalSpacing(10)),
               TextSpan(
@@ -91,19 +93,24 @@ class ProductDetailsWidget extends StatelessWidget {
         const Icon(Icons.star, color: AppColors.yellow),
         RichText(
           text: TextSpan(
-              style: AppsTextStyle.ratingText
-                  .copyWith(color: Theme.of(context).primaryColor),
-              children: [
-                const TextSpan(text: "( "),
-                TextSpan(text: product.productrating!.toString()),
-                TextSpan(
-                    text: " ${AppStrings.ratingLabel} ",
-                    style: AppsTextStyle.ratingText),
-                TextSpan(
-                    text: ")",
-                    style: AppsTextStyle.ratingText
-                        .copyWith(color: Theme.of(context).primaryColor)),
-              ]),
+            style: AppsTextStyle.ratingText.copyWith(
+              color: Theme.of(context).primaryColor,
+            ),
+            children: [
+              const TextSpan(text: "( "),
+              TextSpan(text: product.productrating!.toString()),
+              TextSpan(
+                text: " ${AppStrings.ratingLabel} ",
+                style: AppsTextStyle.ratingText,
+              ),
+              TextSpan(
+                text: ")",
+                style: AppsTextStyle.ratingText.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

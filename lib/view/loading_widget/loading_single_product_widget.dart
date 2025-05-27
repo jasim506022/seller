@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../res/app_function.dart';
 
-import '../../widget/defaul_shimmer_widget.dart';
+import '../../widget/default_shimmer_widget.dart';
 
 /// A shimmer loading effect for a single product placeholder.
 class LoadingSingleProductWidget extends StatelessWidget {

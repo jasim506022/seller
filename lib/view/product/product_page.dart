@@ -12,7 +12,6 @@ import 'widget/product_list_widget.dart';
 /// Represents the product listing screen where users can filter products by category.
 /// This screen allows users to view and filter a list of products based on their selected category.
 class ProductPage extends StatelessWidget {
-  /// Constructor for ProductPage.
   const ProductPage({super.key});
 
   @override
@@ -22,29 +21,30 @@ class ProductPage extends StatelessWidget {
         Get.find<CategoryManagerController>();
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text(AppStrings.productsTitle)),
+        automaticallyImplyLeading: false,
+        title: const Text(AppStrings.productsTitle),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
-            /// Dropdown to filter products by category.
-            /// The dropdown allows users to select a category from a predefined list.
+            // Dropdown to filter products by category.
+            // The dropdown allows users to select a category from a predefined list.
             CustomDropdownWidget(
               items: AppConstants.allCategories,
               value: categoryController.selectedAllCategory.value,
               onChanged: (category) {
                 if (category != null) {
-                  categoryController.updateAllCategory(category.toString());
                   // Updates the selected category in the controller.
+                  categoryController.updateAllCategory(category.toString());
                 }
               },
             ),
             AppsFunction.verticalSpacing(10),
 
-            /// Displays the product list.
-            /// The product list is dynamically updated based on the selected category.
-            const Expanded(child: ProductGridViewStream())
+            // Displays the product list.
+            // The product list is dynamically updated based on the selected category.
+            const Expanded(child: ProductGridViewStream()),
           ],
         ),
       ),

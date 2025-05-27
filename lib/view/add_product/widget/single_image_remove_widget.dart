@@ -19,7 +19,7 @@ class SingleImageRemoveWidget extends StatelessWidget {
     final ManageProductController manageProductController =
         Get.find<ManageProductController>();
 
-    /// Retrieve the selected image (can be a File or a URL String)
+    // Retrieve the selected image (can be a File or a URL String)
     var selectedImage = manageProductController.selectedImagesList[index];
     return Stack(
       children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seller/res/app_function.dart';
 import '../../data/response/service/profile_menu_item_list_data.dart';
 import '../../res/app_string.dart';
 import '../../res/apps_color.dart';
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    /// Get the `ProfileController` instance for managing Profile.
+    // Get the `ProfileController` instance for managing Profile.
     profileController = Get.find<ProfileController>();
     super.initState();
   }
@@ -36,10 +37,12 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text(AppStrings.profileTitle),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.settings_outlined,
-              ))
+            onPressed:
+                () => AppsFunction.flutterToast(
+                  msg: "Feature Coming Soon?...........",
+                ),
+            icon: const Icon(Icons.settings_outlined),
+          ),
         ],
       ),
       body: Column(
@@ -60,11 +63,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: AppStrings.signOutLabel,
                   iconColor: AppColors.red,
                   // Handles sign-out action with an internet check
-                  onTap: () async {
-                    await NetworkUtils.executeWithInternetCheck(
-                        action: () => profileController.signOut());
-                  },
-                )
+                  onTap:
+                      () async => await NetworkUtils.executeWithInternetCheck(
+                        action: profileController.signOut,
+                      ),
+                ),
               ],
             ),
           ),
@@ -79,25 +82,27 @@ class _ProfilePageState extends State<ProfilePage> {
   /// - Navigates to the selected menu item's route.
   Widget _buildProfileMenuItems() {
     return Column(
-      children: ProfileMenuItemListData.profileMenuItems.map((profileMenuItem) {
-        return ProfileMenuItemTileWidget(
-          icon: profileMenuItem.icon,
-          title: profileMenuItem.title,
-          onTap: () async {
-            NetworkUtils.executeWithInternetCheck(action: () {
-              if (profileMenuItem.argument is int) {
-                Get.offAndToNamed(profileMenuItem.route,
-                    arguments: profileMenuItem.argument);
-              } else {
-                Get.toNamed(profileMenuItem.route);
-              }
-            });
-          },
-        );
-      }).toList(),
+      children:
+          ProfileMenuItemListData.profileMenuItems.map((profileMenuItem) {
+            return ProfileMenuItemTileWidget(
+              icon: profileMenuItem.icon,
+              title: profileMenuItem.title,
+              onTap: () async {
+                NetworkUtils.executeWithInternetCheck(
+                  action: () {
+                    if (profileMenuItem.argument is int) {
+                      Get.offAndToNamed(
+                        profileMenuItem.route,
+                        arguments: profileMenuItem.argument,
+                      );
+                    } else {
+                      Get.toNamed(profileMenuItem.route);
+                    }
+                  },
+                );
+              },
+            );
+          }).toList(),
     );
   }
 }
-
-
-// Undersstand Construct and Map with List, is

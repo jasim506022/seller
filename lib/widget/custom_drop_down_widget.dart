@@ -7,21 +7,18 @@ import '../../../res/apps_text_style.dart';
 class CustomDropdownWidget extends StatelessWidget {
   const CustomDropdownWidget({
     super.key,
-    this.onChanged, // Callback function triggered when an item is selected
+    this.onChanged,
     required this.value,
     required this.items,
   });
 
   /// The currently selected value in the dropdown.
-
   final String value;
 
   /// Callback function triggered when an item is selected.
-
   final void Function(String?)? onChanged;
 
   /// List of items displayed in the dropdown.
-
   final List<String> items;
 
   @override
@@ -36,10 +33,13 @@ class CustomDropdownWidget extends StatelessWidget {
       ),
       value: value,
       style: AppsTextStyle.mediumBoldText,
-      items: items
-          .map<DropdownMenuItem<String>>((String value) =>
-              DropdownMenuItem<String>(value: value, child: Text(value)))
-          .toList(),
+      items:
+          items
+              .map<DropdownMenuItem<String>>(
+                (String value) =>
+                    DropdownMenuItem<String>(value: value, child: Text(value)),
+              )
+              .toList(),
       onChanged: onChanged,
     );
   }
@@ -47,9 +47,7 @@ class CustomDropdownWidget extends StatelessWidget {
   /// Builds a rounded border for the input field.
   OutlineInputBorder _buildDropdownItems() {
     return OutlineInputBorder(
-      borderSide: const BorderSide(
-        width: 1,
-      ),
+      borderSide: const BorderSide(width: 1),
       borderRadius: BorderRadius.circular(15.r),
     );
   }

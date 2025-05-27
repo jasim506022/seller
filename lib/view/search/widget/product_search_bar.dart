@@ -19,14 +19,13 @@ class ProductSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductSearchController searchController =
-        Get.find<ProductSearchController>();
+
     return SizedBox(
       height: 85.h,
       width: 1.sw,
       child: Row(
         children: [
-          Expanded(flex: 4, child: _buildSearchField(searchController)),
+          Expanded(flex: 4, child: _buildSearchField()),
           AppsFunction.horizontalSpacing(8),
           _buildFilterButton()
         ],
@@ -36,7 +35,9 @@ class ProductSearchBar extends StatelessWidget {
 
   /// **buildSearchField**
   /// Creates the search input field.
-  Widget _buildSearchField(ProductSearchController searchController) {
+  Widget _buildSearchField() {
+    final ProductSearchController searchController =
+    Get.find<ProductSearchController>();
     return CustomTextFormField(
         hintText: AppStrings.minimumHint,
         style: AppsTextStyle.mediumNormalText
@@ -58,8 +59,3 @@ class ProductSearchBar extends StatelessWidget {
   }
 }
 
-/*
-
-_buildSearchField → buildSearchField (Remove underscore since it's used within a stateless
-Why onChanged: searchController.searchProducts, // Directly passing function reference
-*/

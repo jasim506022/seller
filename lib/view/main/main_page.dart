@@ -12,7 +12,7 @@ import '../product/product_page.dart';
 import '../profile/profile_page.dart';
 import '../search/search_page.dart';
 
-/// /// Main application page with a bottom navigation bar.
+/// Main application page with a bottom navigation bar.
 /// Handles user profile fetching and notification setup.
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,9 +23,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   // Using late Because ensure that profileController is initialized only after the widget is create.
-  late ProfileController profileController;
+  late final ProfileController profileController;
 
-  /// Stores the currently selected bottom navigation index. (The _currentIndex use means that _currentIndex is private and cann't access outside of this class)
+  // Stores the currently selected bottom navigation index. (The _currentIndex use means that _currentIndex is private and cann't access outside of this class)
   int _currentIndex = 0;
 
   /// List of screens associated with each bottom navigation item. (using final const because Can be assigned only once?)
@@ -84,10 +84,10 @@ class _MainPageState extends State<MainPage> {
           backgroundColor: Theme.of(context).cardColor,
           currentIndex: _currentIndex,
 
-          /// Updates the selected tab when the user taps a navigation item.
+          // Updates the selected tab when the user taps a navigation item.
           onTap: (i) => setState(() => _currentIndex = i),
 
-          /// Displays the currently selected screen.
+          // Displays the currently selected screen.
           items: _createBottomNavItems(),
         ),
         body: _bottomNavigationWidgets[_currentIndex],
@@ -136,5 +136,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-

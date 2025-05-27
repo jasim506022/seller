@@ -24,14 +24,14 @@ class DashboardGridWidget extends StatelessWidget {
             image: gridItem.image,
             label: gridItem.label,
             onTap: () {
-              /// Navigate to the corresponding route when an item is tapped
+              // Navigate to the corresponding route when an item is tapped
               if (gridItem.arguments != null) {
                 Get.offAndToNamed(
                   gridItem.destinationRoute,
                   arguments: gridItem.arguments,
                 );
               } else {
-                /// Navigate to the route without arguments
+                // Navigate to the route without arguments
                 Get.toNamed(gridItem.destinationRoute);
               }
             },

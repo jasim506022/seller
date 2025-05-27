@@ -33,7 +33,7 @@ class OrderListByStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve the controllers using GetX dependency injection.
+    /// Retrieve the controllers using GetX dependency injection.
     final CategoryManagerController categoryController =
         Get.find<CategoryManagerController>();
     final OrderController orderController = Get.find<OrderController>();
@@ -120,10 +120,4 @@ class OrderListByStatusWidget extends StatelessWidget {
   }
 }
 
-/*
-# Why doesn't use if else in StreamBuilder
-#: // Use predefined order status or from controller
-    final String currentOrderStatus =
-        selectedOrderStatus ?? categoryController.selectedStatus.value; check when complete is Data
 
-*/

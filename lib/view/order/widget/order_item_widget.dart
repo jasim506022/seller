@@ -136,7 +136,3 @@ class OrderItemWidget extends StatelessWidget {
   }
 }
 
-
-/*
-Why use Privider False 
-*/

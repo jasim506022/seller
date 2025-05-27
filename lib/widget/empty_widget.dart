@@ -5,11 +5,7 @@ import '../res/apps_text_style.dart';
 
 /// A reusable widget that displays an image and a message when no data is available.
 class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({
-    super.key,
-    required this.image,
-    required this.title,
-  });
+  const EmptyWidget({super.key, required this.image, required this.title});
 
   final String image;
   final String title;
@@ -19,16 +15,10 @@ class EmptyWidget extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
-          /// Background image for empty state.
+          // Background image for empty state.
+          Image.asset(image, height: 550.h, width: 320.w),
 
-          Image.asset(
-            image,
-            height: 550.h,
-            width: 320.w,
-          ),
-
-          /// Title positioned on the image
-
+          // Title positioned on the image
           Positioned(
             top: 120.h,
             left: 130.w,
@@ -38,10 +28,11 @@ class EmptyWidget extends StatelessWidget {
                 height: 300.h,
                 width: 130.w,
                 child: Center(
-                    child: Text(title, style: AppsTextStyle.emptyTextStyle)),
+                  child: Text(title, style: AppsTextStyle.emptyTextStyle),
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

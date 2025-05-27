@@ -25,24 +25,27 @@ class SearchProductGridWidget extends StatelessWidget {
 
       return productList.isEmpty
           ? EmptyWidget(
-              image: AppImage.error,
-              title: AppStrings.noDataAvaiableError,
-            )
-
-          /// Builds the product grid using the filtered product list.
+            image: AppImage.error,
+            title: AppStrings.noDataAvaiableError,
+          )
+          // Builds the product grid using the filtered product list.
           : GridView.builder(
-              itemCount: productList.length,
-              gridDelegate: AppsFunction.defaultProductGridDelegate(),
-              itemBuilder: (context, index) {
-                return ChangeNotifierProvider.value(
-                    value: productList[index], child: const ProductWidget());
-              });
+            itemCount: productList.length,
+            gridDelegate: AppsFunction.defaultProductGridDelegate(),
+            itemBuilder: (context, index) {
+              return ChangeNotifierProvider.value(
+                value: productList[index],
+                child: const ProductWidget(),
+              );
+            },
+          );
     });
   }
 
-  /// Filters the product list based on the current state of the search and filter controllers.
+  // Filters the product list based on the current state of the search and filter controllers.
   List<ProductModel> _getFilteredProducts(
-      ProductSearchController searchController) {
+    ProductSearchController searchController,
+  ) {
     if (searchController.isFilterActive.value &&
         searchController.searchTextTEC.text.isEmpty) {
       return searchController.filteredProducts;

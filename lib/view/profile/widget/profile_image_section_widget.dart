@@ -15,34 +15,40 @@ import '../../../widget/profile_photo_option_sheet_widget.dart';
 /// - Uses `FancyShimmerImage` for better image loading.
 /// - Allows selecting a new profile image via `Get.bottomSheet()`.
 class ProfileImageSectionWidget extends StatelessWidget {
+  const ProfileImageSectionWidget({
+    super.key,
+    required this.isEditMode,
+    required this.imageUrl,
+  });
+
   /// Indicates whether the profile is in **edit mode**.
   final bool isEditMode;
 
   /// The current **profile image URL**.
   final String imageUrl;
 
-  const ProfileImageSectionWidget(
-      {super.key, required this.isEditMode, required this.imageUrl});
-
   @override
   Widget build(BuildContext context) {
-    /// Retrieve the `ProfileController` instance.
+    // Retrieve the `ProfileController` instance.
     final ProfileController profileController = Get.find<ProfileController>();
 
-// Return a stack with an editable image if `isEditMode` is true.
+    // Return a stack with an editable image if `isEditMode` is true.
     // Otherwise, show the profile image in view-only mode.
     return Stack(
       children: [
         /// Display **profile image** inside a bordered container.
-        Obx(() =>
-            _buildImageContainer(child: _buildImageWidget(profileController))),
+        Obx(
+          () =>
+              _buildImageContainer(child: _buildImageWidget(profileController)),
+        ),
 
         /// If in **edit mode**, show a camera button to update the image.
         if (isEditMode)
           Positioned(
-              bottom: 5.h,
-              right: 5.w,
-              child: _buildSelectImageButton(context, profileController)),
+            bottom: 5.h,
+            right: 5.w,
+            child: _buildSelectImageButton(context, profileController),
+          ),
       ],
     );
   }
@@ -68,17 +74,22 @@ class ProfileImageSectionWidget extends StatelessWidget {
   /// - Opens the `PhotoOptionSheetWidget` when pressed.
   /// - Updates the profile image selection state.
   Widget _buildSelectImageButton(
-      BuildContext context, ProfileController profileController) {
+    BuildContext context,
+    ProfileController profileController,
+  ) {
     return Container(
-      decoration:
-          BoxDecoration(color: Colors.red.shade400, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: Colors.red.shade400,
+        shape: BoxShape.circle,
+      ),
       child: IconButton(
         icon: const Icon(Icons.camera_alt, color: AppColors.white),
         onPressed: () {
           profileController.isDataChanged(true);
           Get.bottomSheet(
-              backgroundColor: Theme.of(context).cardColor,
-              const PhotoOptionSheetWidget());
+            backgroundColor: Theme.of(context).cardColor,
+            const PhotoOptionSheetWidget(),
+          );
         },
       ),
     );
@@ -93,9 +104,9 @@ class ProfileImageSectionWidget extends StatelessWidget {
         profileController.selectImageController.selectPhoto.value;
     return selectedImage == null
         ? FancyShimmerImage(
-            imageUrl: imageUrl,
-            errorWidget: const Icon(Icons.error),
-          )
+          imageUrl: imageUrl,
+          errorWidget: const Icon(Icons.error),
+        )
         : CircleAvatar(backgroundImage: FileImage(selectedImage));
   }
 }

@@ -45,7 +45,3 @@ class ThemeToggleSwitchWidget extends StatelessWidget {
   }
 }
 
-
-/*
-#: Why we use Final   final bool isDarkMode = themeProvider.isDarkMod;
-*/

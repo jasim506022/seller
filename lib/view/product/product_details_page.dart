@@ -10,15 +10,13 @@ import 'package:get/get.dart';
 import '../../res/app_function.dart';
 import '../../res/apps_text_style.dart';
 import 'widget/details_page_image_slider.dart';
-import 'widget/list_similer_product_wiget.dart';
+import 'widget/list_similar_product_widget.dart';
 import 'widget/product_details_widget.dart';
 
 /// A page that displays the details of a specific product, including product images,
 /// description, and a list of similar products.
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({
-    super.key,
-  });
+  const ProductDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +25,7 @@ class ProductDetailsPage extends StatelessWidget {
 
     // Extract the ProductModel from the navigation arguments
     final arguments = Get.arguments;
+
     final ProductModel productModel =
         arguments[AppStrings.productModelArgument];
 
@@ -35,9 +34,7 @@ class ProductDetailsPage extends StatelessWidget {
       onPopInvoked: (bool didPop) {
         // Navigate back to Product Page
         if (!didPop) {
-          Get.offAndToNamed(
-            RoutesName.mainPage,
-          );
+          Get.offAndToNamed(RoutesName.mainPage);
         }
       },
       child: Scaffold(
@@ -46,7 +43,8 @@ class ProductDetailsPage extends StatelessWidget {
             children: [
               AppsFunction.verticalSpacing(20),
               DetailsPageImageSlideWithCartBridgeWidget(
-                  productModel: productModel),
+                productModel: productModel,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
@@ -64,7 +62,7 @@ class ProductDetailsPage extends StatelessWidget {
                     AppsFunction.verticalSpacing(20),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -78,12 +76,17 @@ class ProductDetailsPage extends StatelessWidget {
   /// dark brightness, and adjusts the icon brightness based on the current theme.
   void _statusBar(BuildContext context) {
     // Enable system UI mode for manual control over system UI overlays (top and bottom).
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
     // Set the system UI overlay style, including status bar color and icon brightness.
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
         statusBarColor: ThemeUtils.green300,
         statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Theme.of(context).brightness));
+        statusBarIconBrightness: Theme.of(context).brightness,
+      ),
+    );
   }
 }

@@ -7,14 +7,11 @@ import 'loading_product_widget.dart';
 /// This is typically used when product data is being fetched or processed.
 /// It shows a grid of placeholder widgets that represent product items
 class LoadingListProductWidget extends StatelessWidget {
-  const LoadingListProductWidget({
-    super.key,
-  });
+  const LoadingListProductWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      // shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       gridDelegate: AppsFunction.defaultProductGridDelegate(),
       itemCount: 20,
@@ -24,4 +21,3 @@ class LoadingListProductWidget extends StatelessWidget {
     );
   }
 }
-// Undestand ShriknWrap 

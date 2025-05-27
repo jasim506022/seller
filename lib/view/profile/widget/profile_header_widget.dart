@@ -14,51 +14,51 @@ import '../../../widget/user_avatar_widget.dart';
 /// A widget that displays the user's profile information in the header.
 /// Includes profile image, name, email, and an "Edit Profile" button.
 class ProfileHeaderWidget extends StatelessWidget {
-  const ProfileHeaderWidget({
-    super.key,
-  });
+  const ProfileHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Fetch user profile data
     final userData = _fetchUserProfile();
     return Container(
-        height: 153.h,
-        width: 1.sw,
-        color: Theme.of(context).cardColor,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Row(
-          children: [
-            /// User Profile Avatar
-            UserAvatarWidget(
-              diameter: 125,
-              imageUrl: userData['profileImageUrl']!,
-            ),
-            AppsFunction.horizontalSpacing(30),
+      height: 153.h,
+      width: 1.sw,
+      color: Theme.of(context).cardColor,
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Row(
+        children: [
+          /// User Profile Avatar
+          UserAvatarWidget(
+            diameter: 125,
+            imageUrl: userData['profileImageUrl']!,
+          ),
+          AppsFunction.horizontalSpacing(30),
 
-            /// Profile Details Section
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.w),
-                child: _buildUserInfoSection(userData),
-              ),
-            )
-          ],
-        ));
+          /// Profile Details Section
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.w),
+              child: _buildUserInfoSection(userData),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   /// Fetches user profile data from shared preferences.
   /// Ensures that null values are safely handled with defaults.
   Map<String, String> _fetchUserProfile() {
+    var sharePreference = AppConstants.sharedPreference!;
     return {
       'name':
-          AppConstants.sharedPreference?.getString(AppStrings.prefUserName) ??
-              AppStrings.defaultName,
+          sharePreference.getString(AppStrings.prefUserName) ??
+          AppStrings.defaultName,
       'email':
-          AppConstants.sharedPreference?.getString(AppStrings.prefUserEmail) ??
-              AppStrings.defaultEmail,
-      'profileImageUrl': AppConstants.sharedPreference
-              ?.getString(AppStrings.prefUserProfilePic) ??
+          sharePreference.getString(AppStrings.prefUserEmail) ??
+          AppStrings.defaultEmail,
+      'profileImageUrl':
+          sharePreference.getString(AppStrings.prefUserProfilePic) ??
           AppStrings.defaultImage,
     };
   }
@@ -84,8 +84,8 @@ class ProfileHeaderWidget extends StatelessWidget {
           style: AppsTextStyle.subTitleTextStyle,
         ),
         AppButton(
-          onPressed: () =>
-              Get.toNamed(RoutesName.editProfilePage, arguments: true),
+          onPressed:
+              () => Get.toNamed(RoutesName.editProfilePage, arguments: true),
           title: AppStrings.btnEditProfile,
           width: 160,
         ),

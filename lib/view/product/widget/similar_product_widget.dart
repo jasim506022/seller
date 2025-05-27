@@ -15,9 +15,7 @@ import '../../../res/routes/routes_name.dart';
 /// Displays a single product in the "Similar Products" list.
 /// Tapping it navigates to the Product Details page.
 class SimilarProductCard extends StatelessWidget {
-  const SimilarProductCard({
-    super.key,
-  });
+  const SimilarProductCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +24,13 @@ class SimilarProductCard extends StatelessWidget {
     return InkWell(
       onTap: () async {
         // Check Internet before navigating
-        NetworkUtils.executeWithInternetCheck(action: () {
-          Get.offAndToNamed(
-            RoutesName.productDetails,
-            arguments: {AppStrings.productModelArgument: productModel},
-          );
-        });
+        NetworkUtils.executeWithInternetCheck(
+          action:
+              () => Get.offAndToNamed(
+                RoutesName.productDetails,
+                arguments: {AppStrings.productModelArgument: productModel},
+              ),
+        );
       },
       child: Card(
         child: Container(
@@ -52,11 +51,14 @@ class SimilarProductCard extends StatelessWidget {
               ),
               AppsFunction.verticalSpacing(10),
               // Display the product name, truncating if it's too long
-              Text(productModel.productname!,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: AppsTextStyle.ratingText
-                      .copyWith(color: Theme.of(context).primaryColor)),
+              Text(
+                productModel.productname!,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: AppsTextStyle.ratingText.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
             ],
           ),
         ),

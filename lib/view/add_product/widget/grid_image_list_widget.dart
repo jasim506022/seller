@@ -11,34 +11,32 @@ import 'single_image_remove_widget.dart';
 /// A widget that displays a grid of selected product images with the ability to remove them.
 
 class GridImageListWidget extends StatelessWidget {
-  const GridImageListWidget({
-    super.key,
-  });
+  const GridImageListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     /// Access the ManageProductController using GetX
-
     final ManageProductController manageProductController =
         Get.find<ManageProductController>();
     return Obx(() {
-      /// List of selected images
-
+      // List of selected images
       List<dynamic> selectedImages = manageProductController.selectedImagesList;
       return Container(
-          height: 0.25.sh,
-          width: 1.sw,
-          padding: EdgeInsets.all(3.r),
-          margin: EdgeInsets.all(5.r),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.r),
-            border: Border.all(color: AppColors.green, width: 3.h),
-          ),
+        height: 0.25.sh,
+        width: 1.sw,
+        padding: EdgeInsets.all(3.r),
+        margin: EdgeInsets.all(5.r),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.green, width: 3.h),
+        ),
 
-          /// Show empty state if no images are selected, otherwise show the grid
-          child: selectedImages.isEmpty
-              ? _buildEmptyState()
-              : _buildImageGrid(selectedImages));
+        // Show empty state if no images are selected, otherwise show the grid
+        child:
+            selectedImages.isEmpty
+                ? _buildEmptyState()
+                : _buildImageGrid(selectedImages),
+      );
     });
   }
 
@@ -49,7 +47,10 @@ class GridImageListWidget extends StatelessWidget {
     return Center(
       child: Text(
         AppStrings.noImageSelectedToast,
-        style: AppsTextStyle.mediumBoldText.copyWith(color: AppColors.red,fontSize: 20.sp),
+        style: AppsTextStyle.mediumBoldText.copyWith(
+          color: AppColors.red,
+          fontSize: 20.sp,
+        ),
       ),
     );
   }

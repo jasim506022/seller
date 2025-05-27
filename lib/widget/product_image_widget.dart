@@ -16,6 +16,7 @@ class ProductImageWidget extends StatelessWidget {
     this.width,
     required this.imageHeight,
   });
+
   final ProductModel productModel;
   final double height;
   final double? width;
@@ -25,23 +26,26 @@ class ProductImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        //If no width is provided, default to full screen width.
         Container(
-            height: height.h,
-            width: width?.w ??
-                1.sw, //If no width is provided, default to full screen width.
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10.r),
-            padding: EdgeInsets.all(20.r),
-            decoration: BoxDecoration(
-                color: AppColors.cardImageBg,
-                borderRadius: BorderRadius.circular(5.r)),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
-                child: FancyShimmerImage(
-                  height: imageHeight.h,
-                  boxFit: BoxFit.contain,
-                  imageUrl: productModel.productimage![0],
-                ))),
+          height: height.h,
+          width: width?.w ?? 1.sw,
+          alignment: Alignment.center,
+          margin: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: AppColors.cardImageBg,
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.r),
+            child: FancyShimmerImage(
+              height: imageHeight.h,
+              boxFit: BoxFit.contain,
+              imageUrl: productModel.productimage![0],
+            ),
+          ),
+        ),
         // Displays the discount badge if the product has a discount.
         DiscountBadge(discount: productModel.discount!),
       ],

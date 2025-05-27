@@ -23,7 +23,7 @@ class SimilarProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the ProductController instance
+    /// Get the ProductController instance
     final ProductController productController = Get.find<ProductController>();
     return SizedBox(
       height: 160.h,
@@ -33,7 +33,7 @@ class SimilarProductList extends StatelessWidget {
             productModel: productModel),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingSimilierWidget();
+            return const LoadingSimilarWidget();
           }
           if (!snapshot.hasData ||
               snapshot.data!.docs.isEmpty ||
@@ -58,7 +58,7 @@ class SimilarProductList extends StatelessWidget {
                   );
                 });
           }
-          return const LoadingSimilierWidget();
+          return const LoadingSimilarWidget();
         },
       ),
     );

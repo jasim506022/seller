@@ -16,35 +16,36 @@ import 'product_image_widget.dart';
 /// **ProductWidget**
 /// Displays a product card with image, price, and navigation options.
 class ProductWidget extends StatelessWidget {
-  const ProductWidget({
-    super.key,
-  });
+  const ProductWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Get Product Model by Provider
-    final product = Provider.of<ProductModel>(context);
+    final ProductModel productModel = Provider.of<ProductModel>(
+      context,
+      listen: false,
+    );
     // Main structure of the product widget with tap handling
     return InkWell(
-      onTap: () => _navigateToPage(product),
+      onTap: () => _navigateToPage(productModel),
       child: Card(
         elevation: 4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Product Image Section
+            // Product Image Section
             ProductImageWidget(
               imageHeight: 90,
-              productModel: product,
+              productModel: productModel,
               height: 100,
             ),
             // Expanded section to fit product info
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: _buildProductInfoSection(product),
+                child: _buildProductInfoSection(productModel),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -55,8 +56,9 @@ class ProductWidget extends StatelessWidget {
   Column _buildProductInfoSection(ProductModel productModel) {
     // Calculate the discounted price of the product
     String productPrice = AppsFunction.getDiscountedPrice(
-            productModel.productprice!, productModel.discount!.toDouble())
-        .toStringAsFixed(2);
+      productModel.productprice!,
+      productModel.discount!.toDouble(),
+    ).toStringAsFixed(2);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,33 +92,23 @@ class ProductWidget extends StatelessWidget {
           onPressed: () => _navigateToPage(productModel, true),
           title: AppStrings.btnUpdate,
         ),
-        AppsFunction.verticalSpacing(5)
+        AppsFunction.verticalSpacing(5),
       ],
     );
   }
 
   /// Handles navigation based on the action (view details or update).
   void _navigateToPage(ProductModel productModel, [bool isUpdate = false]) {
-    final routeName = isUpdate
-        ? RoutesName.uploadAndUpdateProduct
-        : RoutesName.productDetails;
-    Get.toNamed(routeName, arguments: {
-      AppStrings.productModelArgument: productModel,
-      if (isUpdate) AppStrings.isUpdateArgument: true,
-    });
+    final String routeName =
+        isUpdate
+            ? RoutesName.uploadAndUpdateProduct
+            : RoutesName.productDetails;
+    Get.toNamed(
+      routeName,
+      arguments: {
+        AppStrings.productModelArgument: productModel,
+        if (isUpdate) AppStrings.isUpdateArgument: true,
+      },
+    );
   }
 }
-
-/*
-# Understand this
-void _navigateToPage(ProductModel productModel, [bool isUpdate = false]) {
-    final routeName = isUpdate
-        ? RoutesName.uploadAndUpdateProduct
-        : RoutesName.productDetails;
-    Get.toNamed(routeName, arguments: {
-      AppStrings.productModel: productModel,
-      if (isUpdate) AppStrings.isUpdate: true,
-    });
-
-    #: 
-*/

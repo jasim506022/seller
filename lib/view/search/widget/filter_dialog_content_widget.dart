@@ -21,7 +21,7 @@ class FilterDialogContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtain the instance of ProductSearchController using GetX for state management
+    /// Obtain the instance of ProductSearchController using GetX for state management
     final ProductSearchController searchController =
         Get.find<ProductSearchController>();
     return Padding(

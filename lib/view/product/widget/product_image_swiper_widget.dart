@@ -6,10 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../res/apps_color.dart';
 
 class ProductImageSwiperWidget extends StatelessWidget {
-  const ProductImageSwiperWidget({
-    super.key,
-    required this.imageUrls,
-  });
+  const ProductImageSwiperWidget({super.key, required this.imageUrls});
 
   final List<dynamic> imageUrls;
 
@@ -24,26 +21,28 @@ class ProductImageSwiperWidget extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return CachedNetworkImage(
               imageUrl: imageUrls[index],
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child:
-                    CircularProgressIndicator(value: downloadProgress.progress),
-              ),
+              progressIndicatorBuilder:
+                  (context, url, downloadProgress) => Center(
+                    child: CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                    ),
+                  ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             );
           },
-          autoplay: imageUrls.length > 1,// Enable autoplay only if multiple images exist
+          autoplay: imageUrls.length > 1,
+          // Enable autoplay only if multiple images exist
           itemCount: imageUrls.length,
           pagination: const SwiperPagination(
-              alignment: Alignment.bottomCenter,
-              builder: DotSwiperPaginationBuilder(
-                  color: AppColors.white, activeColor: AppColors.red)),
+            alignment: Alignment.bottomCenter,
+            builder: DotSwiperPaginationBuilder(
+              color: AppColors.white,
+              activeColor: AppColors.red,
+            ),
+          ),
           control: const SwiperControl(color: Colors.transparent),
         ),
       ),
     );
   }
 }
-/*
-images.length == 1 ? false : true	images.length > 1	Simplifies logic for autoplay toggle
-*/

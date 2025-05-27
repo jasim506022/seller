@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../res/app_function.dart';
-import '../../widget/defaul_shimmer_widget.dart';
+import '../../widget/default_shimmer_widget.dart';
 
 /// A shimmer loading skeleton for the Delivery User section.
 ///

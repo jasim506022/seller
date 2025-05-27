@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../res/app_function.dart';
-import '../../widget/defaul_shimmer_widget.dart';
+import '../../widget/default_shimmer_widget.dart';
 
-class LoadingSimilierWidget extends StatelessWidget {
-  const LoadingSimilierWidget({
+/// A horizontal list of shimmer placeholders representing loading similar items.
+///
+/// This widget shows 5 horizontally scrollable shimmer cards, each simulating
+/// a loading UI with image and text placeholders.
+
+class LoadingSimilarWidget extends StatelessWidget {
+  const LoadingSimilarWidget({
     super.key,
   });
 
@@ -21,10 +26,13 @@ class LoadingSimilierWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                // Placeholder for image
                 AppsFunction.shimmerPlaceholder(height: 90),
                 AppsFunction.verticalSpacing(10),
+                // Placeholder for title
                 AppsFunction.shimmerPlaceholder(height: 10),
                 AppsFunction.verticalSpacing(10),
+                // Placeholder for subtitle or price
                 AppsFunction.shimmerPlaceholder(height: 10)
               ],
             ),

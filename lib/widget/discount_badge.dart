@@ -8,10 +8,7 @@ import '../res/apps_text_style.dart';
 /// A badge widget that displays the product's discount percentage on the UI.
 /// This widget will only be visible if the product has a discount greater than 0.
 class DiscountBadge extends StatelessWidget {
-  const DiscountBadge({
-    super.key,
-    required this.discount,
-  });
+  const DiscountBadge({super.key, required this.discount});
 
   final num discount;
 
@@ -33,9 +30,7 @@ class DiscountBadge extends StatelessWidget {
         ),
         child: Text(
           "$discount% ${AppStrings.off}",
-          style: AppsTextStyle.smallBoldText.copyWith(
-            color: AppColors.red,
-          ),
+          style: AppsTextStyle.smallBoldText.copyWith(color: AppColors.red),
         ),
       ),
     );

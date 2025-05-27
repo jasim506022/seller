@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../res/app_function.dart';
 
-import '../../widget/defaul_shimmer_widget.dart';
+import '../../widget/default_shimmer_widget.dart';
 
 /// A placeholder widget for the profile header while data is loading.
 /// This widget displays a shimmer effect to indicate a loading state.

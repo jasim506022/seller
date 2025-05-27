@@ -125,7 +125,7 @@ class _ManageProductFormState extends State<ManageProductForm> {
       key: _formKey,
       child: Column(
         children: [
-          /// Product Category Selection Dropdown
+          // Product Category Selection Dropdown
           CustomDropdownWidget(
             items: AppConstants.categories,
             value:
@@ -142,7 +142,7 @@ class _ManageProductFormState extends State<ManageProductForm> {
           ),
           AppsFunction.verticalSpacing(10),
 
-          /// Product Input Field
+          // Product Input Field
           CustomTextFormField(
             onChanged: (value) => manageProductController.trackInputChanges(),
             controller: manageProductController.nameController,
@@ -151,7 +151,7 @@ class _ManageProductFormState extends State<ManageProductForm> {
             validator: Validators.validateProductName,
           ),
 
-          /// Price & Unit Selection Row
+          // Price & Unit Selection Row
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

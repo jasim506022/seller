@@ -15,10 +15,10 @@ class HomeProfileHeaderStream extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Attempt to fetch locally cached profile data from shared preferences
-    final profileData = _fetchLocalProfileData();
+    // Attempt to fetch locally cached profile data from shared preferences
+    final Map<String, String>? profileData = _fetchLocalProfileData();
 
-    /// If local profile data is available, use it directly
+    // If local profile data is available, use it directly
     if (profileData != null) {
       return UserProfileHeader(
         imageUrl: profileData['imageUrl']!,
@@ -27,7 +27,7 @@ class HomeProfileHeaderStream extends StatelessWidget {
       );
     }
 
-    /// If no cached data is found, fetch profile from Database
+    // If no cached data is found, fetch profile from Database
     return _fetchAndBuildProfile();
   }
 
@@ -39,7 +39,7 @@ class HomeProfileHeaderStream extends StatelessWidget {
     final name = sharedPreference.getString(AppStrings.prefUserName);
     final email = sharedPreference.getString(AppStrings.prefUserEmail);
 
-    /// Ensure all values are valid before returning the cached data
+    // Ensure all values are valid before returning the cached data
     if ([image, name, email].every((data) => data?.isNotEmpty ?? false)) {
       return {'imageUrl': image!, 'name': name!, 'email': email!};
     }
@@ -59,7 +59,7 @@ class HomeProfileHeaderStream extends StatelessWidget {
           return const LoadingProfileHeaderWidget(); // Error fallback
         }
 
-        final data = snapshot.data!.data();
+        final Map<String, dynamic>? data = snapshot.data!.data();
 
         final profileModel = ProfileModel.fromMap(data!);
         // Display the user's profile header with fallback values if any field is null
@@ -71,9 +71,4 @@ class HomeProfileHeaderStream extends StatelessWidget {
       },
     );
   }
-
-
 }
-
-
-

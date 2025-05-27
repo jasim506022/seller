@@ -12,9 +12,7 @@ import '../../../widget/custom_text_form_field.dart';
 /// This widget allows users to specify a price range using two text fields.
 /// The values are managed by `ProductSearchController`, which handles the min and max price inputs.
 class ProductPriceBoxWidget extends StatelessWidget {
-  const ProductPriceBoxWidget({
-    super.key,
-  });
+  const ProductPriceBoxWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +27,27 @@ class ProductPriceBoxWidget extends StatelessWidget {
         Text(AppStrings.productPriceLabel, style: AppsTextStyle.mediumBoldText),
         Row(
           children: [
-            /// Minimum price input field.
-            Expanded(
-                child: CustomTextFormField(
-                    textInputType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    hintText: AppStrings.minimumHint,
-                    controller: searchController.minPriceController)),
-            AppsFunction.horizontalSpacing(15),
-
-            /// Maximum price input field.
+            // Minimum price input field.
             Expanded(
               child: CustomTextFormField(
-                  textInputType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  controller: searchController.maxPriceController,
-                  hintText: AppStrings.maximumHint),
+                textInputType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                hintText: AppStrings.minimumHint,
+                controller: searchController.minPriceController,
+              ),
+            ),
+            AppsFunction.horizontalSpacing(15),
+
+            // Maximum price input field.
+            Expanded(
+              child: CustomTextFormField(
+                textInputType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                controller: searchController.maxPriceController,
+                hintText: AppStrings.maximumHint,
+              ),
             ),
           ],
         ),

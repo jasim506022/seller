@@ -20,23 +20,23 @@ class ManageProductPage extends StatefulWidget {
 }
 
 class _ManageProductPageState extends State<ManageProductPage> {
-  /// Indicates whether the page is in 'edit mode' or 'add mode'.
-  /// `true` for edit mode, `false` for add mode.
+  // Indicates whether the page is in 'edit mode' or 'add mode'.
+  // `true` for edit mode, `false` for add mode.
   late bool isEditMode;
 
   /// Controller for handling ManageProductController logic
   late final ManageProductController manageProductController;
 
-  /// Stores the product being edited (only if in edit mode)
-  late ProductModel productModel;
+  // Stores the product being edited (only if in edit mode)
+  late final ProductModel productModel;
 
   @override
   void initState() {
     // Retrieve arguments passed to the page
     final arguments = Get.arguments;
-    isEditMode = arguments?[AppStrings.isUpdateArgument] ?? false;
+    isEditMode = arguments[AppStrings.isUpdateArgument] ?? false;
 
-    /// Get the `ManageProductController` instance for managing AddProduct.
+    // Get the `ManageProductController` instance for managing AddProduct.
     manageProductController = Get.find<ManageProductController>();
 
     // If in edit mode, initialize productModel with passed product details
