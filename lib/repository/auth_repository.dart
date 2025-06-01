@@ -8,7 +8,7 @@ import '../model/profile_model.dart';
 import '../res/app_function.dart';
 
 class AuthRepository {
-  final DataAuthenticationService _authService = DataAuthenticationService();
+  final FirebaseAuthenticationService _authService = FirebaseAuthenticationService();
 
   /// Signs in a user using their email and password.
   Future<UserCredential> loginWithEmailAndPassword(

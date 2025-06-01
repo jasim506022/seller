@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../res/app_string.dart';
 import '../../../res/apps_color.dart';
 import '../../../res/apps_text_style.dart';
-import '../../../service/provider/theme_provider.dart';
+import '../../../service/provider/theme_mode_provider.dart';
 
 /// A switch widget that allows users to toggle between **Light Mode** and **Dark Mode**.
 class ThemeToggleSwitchWidget extends StatelessWidget {
@@ -14,7 +14,7 @@ class ThemeToggleSwitchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
+    return Consumer<ThemeModeProvider>(
       builder: (context, themeProvider, child) {
         final bool isDarkMode = themeProvider.isDarkTheme;
         return SwitchListTile(

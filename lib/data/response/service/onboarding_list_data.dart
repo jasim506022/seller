@@ -3,7 +3,8 @@ import '../../../res/app_asset/image_asset.dart';
 import '../../../res/app_string.dart';
 
 class OnBoardingListData {
-  static List<OnboardModel> getOnboardingData() => [
+  /// Returns a list of onboarding models with image, title, and description.
+  static List<OnboardModel>  getOnboardingData = [
         OnboardModel(
           image: AppImage.onboardingFirstImage,
           title: AppStrings.onboardingTitle1,

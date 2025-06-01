@@ -4,8 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../model/profile_model.dart';
 
+/// Abstract base class defining authentication-related operations.
 abstract class BaseAuthenticationService {
+
+  /// Returns the currently signed-in Firebase user, or null if none.
   User? getCurrentUser();
+  
   Future<UserCredential> signInWithEmailAndPassword(
       {required String email, required String password});
   Future<UserCredential?> signWithGoogle();

@@ -38,9 +38,9 @@ class DataFirebaseService implements BaseFirebaseService {
     final uniqueImageName =
         "${imageFile.name}_${DateTime.now().millisecondsSinceEpoch}";
     var sellerId =
-        AppConstants.sharedPreference?.getString(AppStrings.prefUserId);
+        AppConstants.sharedPreferences?.getString(AppStrings.prefUserId);
     var sellerName =
-        AppConstants.sharedPreference?.getString(AppStrings.prefUserName);
+        AppConstants.sharedPreferences?.getString(AppStrings.prefUserName);
 
     // Define the storage path
     final storagePath =
@@ -59,7 +59,7 @@ class DataFirebaseService implements BaseFirebaseService {
       {required ProductModel productModel, required bool isUpdate}) async {
     final sellerDoc = firebaseFirestore
         .collection(AppStrings.collectionSeller)
-        .doc(AppConstants.sharedPreference!.getString(AppStrings.prefUserId));
+        .doc(AppConstants.sharedPreferences!.getString(AppStrings.prefUserId));
 
     // References to the product documents in seller and global collections
 
@@ -85,7 +85,7 @@ class DataFirebaseService implements BaseFirebaseService {
       {required String category}) {
     var collectionRef = firebaseFirestore
         .collection(AppStrings.collectionSeller)
-        .doc(AppConstants.sharedPreference!.getString(AppStrings.prefUserId))
+        .doc(AppConstants.sharedPreferences!.getString(AppStrings.prefUserId))
         .collection(AppStrings.collectionProducts);
     var query = collectionRef.orderBy(AppStrings.datePublishFirebaseField,
         descending: true);
@@ -101,7 +101,7 @@ class DataFirebaseService implements BaseFirebaseService {
   @override
   Future<void> deleteProductByIdSnapshot({required String productId}) async {
     final sellerId =
-        AppConstants.sharedPreference?.getString(AppStrings.prefUserId);
+        AppConstants.sharedPreferences?.getString(AppStrings.prefUserId);
 
     final sellerRef =
         firebaseFirestore.collection(AppStrings.collectionSeller).doc(sellerId);
@@ -120,7 +120,7 @@ class DataFirebaseService implements BaseFirebaseService {
   Stream<QuerySnapshot<Map<String, dynamic>>> fetchSimilarProducts(
       {required ProductModel productModel}) {
     final sellerId =
-        AppConstants.sharedPreference?.getString(AppStrings.prefUserId);
+        AppConstants.sharedPreferences?.getString(AppStrings.prefUserId);
     return firebaseFirestore
         .collection(AppStrings.collectionSeller)
         .doc(sellerId)
@@ -139,7 +139,7 @@ class DataFirebaseService implements BaseFirebaseService {
   Stream<QuerySnapshot<Map<String, dynamic>>> orderSnapshots(
       {required String orderStatus}) {
     String selleruid =
-        AppConstants.sharedPreference!.getString(AppStrings.prefUserId)!;
+        AppConstants.sharedPreferences!.getString(AppStrings.prefUserId)!;
     return firebaseFirestore
         .collection(AppStrings.collectionOrders)
         .where(AppStrings.sellerFirebaseField,
@@ -153,7 +153,7 @@ class DataFirebaseService implements BaseFirebaseService {
       {required List<String> productIDList}) {
     return firebaseFirestore
         .collection(AppStrings.collectionSeller)
-        .doc(AppConstants.sharedPreference!.getString(AppStrings.prefUserId)!)
+        .doc(AppConstants.sharedPreferences!.getString(AppStrings.prefUserId)!)
         .collection(AppStrings.collectionProducts)
         .where(AppStrings.idProductFirebaseField, whereIn: productIDList)
         .get();
@@ -175,7 +175,7 @@ class DataFirebaseService implements BaseFirebaseService {
       {required String addressId}) {
     return firebaseFirestore
         .collection(AppStrings.collectionUsers)
-        .doc(AppConstants.sharedPreference!.getString(AppStrings.prefUserId))
+        .doc(AppConstants.sharedPreferences!.getString(AppStrings.prefUserId))
         .collection(AppStrings.collectionUserAddress)
         .doc(addressId)
         .snapshots();

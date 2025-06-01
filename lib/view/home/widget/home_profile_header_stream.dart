@@ -34,7 +34,7 @@ class HomeProfileHeaderStream extends StatelessWidget {
   /// Fetches the user profile data from shared preferences.
   /// Returns `null` if no valid data is found.
   Map<String, String>? _fetchLocalProfileData() {
-    var sharedPreference = AppConstants.sharedPreference!;
+    var sharedPreference = AppConstants.sharedPreferences!;
     final image = sharedPreference.getString(AppStrings.prefUserProfilePic);
     final name = sharedPreference.getString(AppStrings.prefUserName);
     final email = sharedPreference.getString(AppStrings.prefUserEmail);

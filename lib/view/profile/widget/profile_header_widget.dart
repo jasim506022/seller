@@ -49,7 +49,7 @@ class ProfileHeaderWidget extends StatelessWidget {
   /// Fetches user profile data from shared preferences.
   /// Ensures that null values are safely handled with defaults.
   Map<String, String> _fetchUserProfile() {
-    var sharePreference = AppConstants.sharedPreference!;
+    var sharePreference = AppConstants.sharedPreferences!;
     return {
       'name':
           sharePreference.getString(AppStrings.prefUserName) ??

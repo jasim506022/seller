@@ -136,7 +136,7 @@ class ProductSearchController extends GetxController {
     if (e is AppException) {
       Get.dialog(
         ErrorDialogWidget(
-          icon: AppIcons.warningIcon,
+          icon: AppIcons.warningIconPath,
           title: e.title!,
           content: e.message,
           buttonText: AppStrings.btnOkay,

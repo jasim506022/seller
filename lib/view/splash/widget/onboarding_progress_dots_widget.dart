@@ -15,12 +15,13 @@ class OnboardingProgressDotsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the controller that manages onboarding logic and state
     final OnboardingController onboardingController =
         Get.find<OnboardingController>();
     return SizedBox(
       height: 15.h,
       child: ListView.builder(
-        itemCount: OnBoardingListData.getOnboardingData().length,
+        itemCount: OnBoardingListData.getOnboardingData.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {

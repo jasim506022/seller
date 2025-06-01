@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../service/provider/theme_provider.dart';
+import '../service/provider/theme_mode_provider.dart';
 import 'apps_color.dart';
 
 class ThemeUtils {
   static BuildContext get _context => Get.context!;
   static bool get isDarkTheme =>
-      Provider.of<ThemeProvider>(_context).isDarkTheme;
+      Provider.of<ThemeModeProvider>(_context).isDarkTheme;
 
   // General Colors
   static Color get baseTextColor => isDarkTheme ? Colors.white : Colors.black;

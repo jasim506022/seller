@@ -39,7 +39,7 @@ class FirebaseDatabase {
   static User get user => auth.currentUser!;
 
   // Seller Uid
-  static String selleruid = AppConstants.sharedPreference!.getString("uid")!;
+  static String selleruid = AppConstants.sharedPreferences!.getString("uid")!;
 
   // instance of Firebase Storeage Reference
   static Reference storageRef = FirebaseStorage.instance.ref();
@@ -269,7 +269,7 @@ class FirebaseDatabase {
   static Stream<DocumentSnapshot<Map<String, dynamic>>> addressSnapsot() {
     return FirebaseFirestore.instance
         .collection("users")
-        .doc(AppConstants.sharedPreference!.getString("uid"))
+        .doc(AppConstants.sharedPreferences!.getString("uid"))
         .snapshots();
 
     //

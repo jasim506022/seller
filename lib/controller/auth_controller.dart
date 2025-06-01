@@ -284,7 +284,7 @@ class AuthController extends GetxController {
   void _showLoadingDialog() {
     Get.dialog(
       ErrorDialogWidget(
-        icon: AppIcons.warningIcon,
+        icon: AppIcons.warningIconPath,
         title: AppStrings.authPageDescription,
         buttonText: AppStrings.btnOkay,
       ),
@@ -297,7 +297,7 @@ class AuthController extends GetxController {
     if (error is AppException) {
       Get.dialog(
         ErrorDialogWidget(
-          icon: AppIcons.warningIcon,
+          icon: AppIcons.warningIconPath,
           title: error.title!,
           content: error.message,
           buttonText: AppStrings.btnOkay,

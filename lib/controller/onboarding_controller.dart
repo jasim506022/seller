@@ -7,22 +7,26 @@ import '../res/app_string.dart';
 import '../res/routes/routes_name.dart';
 
 class OnboardingController extends GetxController {
+  /// Controls the onboarding page view
   final PageController pageController = PageController(initialPage: 0);
+
+  /// Observable to track the current onboarding page index
   var currentIndex = 0.obs;
 
-  /// Marks the onboarding as viewed in shared preferences and navigates to the sign-in page
-Future< void> skipOnboarding() async {
-    AppConstants.isViewed = 1;
-   await AppConstants.sharedPreference!
-        .setInt(AppStrings.prefOnboarding, AppConstants.isViewed);
+  /// Marks onboarding as completed and navigates to the SignIn page
+  Future<void> skipOnboarding() async {
+    AppConstants.isOnboardingViewed = true;
+    await AppConstants.sharedPreferences!.setBool(
+      AppStrings.onboardingViewedKey,
+      AppConstants.isOnboardingViewed,
+    );
     Get.offNamed(RoutesName.signInPage);
   }
 
-  /// Navigates to the next page in the onboarding sequence
- Future<void> goToNextPageOrSkip() async {
-    if (currentIndex.value ==
-        OnBoardingListData.getOnboardingData().length - 1) {
-     await skipOnboarding();
+  /// Moves to next onboarding page or skips if on the last page
+  Future<void> goToNextPageOrSkip() async {
+    if (currentIndex.value == OnBoardingListData.getOnboardingData.length - 1) {
+      await skipOnboarding();
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 250),

@@ -22,7 +22,7 @@ class SplashPage extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.fill,
             // Makes sure the background image fills the entire container area
-            image: AssetImage(AppImage.splashScreenBackground),
+            image: AssetImage(AppImage.splashBackgroundImagePath),
           ),
         ),
         // Center widget centers its child within the available space

@@ -5,16 +5,16 @@ enum ProductAction { delete, update }
 
 /// A class that holds globally used constants throughout the app.
 class AppConstants {
+  /// SharedPreferences instance (  initialized in main)
+  static SharedPreferences? sharedPreferences;
+
+  /// Whether the onboarding screen has been viewed.
+  static bool isOnboardingViewed = false;
+
   /// Previous earning amount (default: 0.0).
   static double previousEarning = 0.0;
 
-  /// A flag to track if a specific action/view has been completed.
-  static int isViewed = 0;
-
-  /// SharedPreferences instance (  initialized in main)
-  static SharedPreferences? sharedPreference;
-
-// ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
   /// Predefined product categories.
   static const categories = [
     "Fruits",
@@ -23,13 +23,13 @@ class AppConstants {
     "Dry & Canned",
     "Drinks",
     "Meat & Fish",
-    "Candy & Chocolate"
+    "Candy & Chocolate",
   ];
 
   /// List of all categories, including an "All" option.
   static const allCategories = ["All", ...categories];
 
-// ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
 
   /// Order status types.
   static const List<String> orderStatuses = ["normal", "handover"];
@@ -37,8 +37,6 @@ class AppConstants {
   /// Measurement units for products.
   static const units = ["Per Kg", "Per Dozen", "Litter", "Pc", "Pcs"];
 }
-
-
 
 /*
 1. SharedPreferences initialization should be done in a lifecycle method, with null safety checks and async handling.

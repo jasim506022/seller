@@ -108,7 +108,7 @@ class ManageProductController extends GetxController {
       if (e is AppException) {
         Get.dialog(
           ErrorDialogWidget(
-            icon: AppIcons.warningIcon,
+            icon: AppIcons.warningIconPath,
             title: e.title!,
             content: e.message,
             buttonText: AppStrings.btnOkay,
@@ -144,9 +144,9 @@ class ManageProductController extends GetxController {
   ProductModel _buildProductModel(bool isUpdate, List<String> imageUrls) {
     return ProductModel(
       productId: productId,
-      sellerId: AppConstants.sharedPreference?.getString(AppStrings.prefUserId),
+      sellerId: AppConstants.sharedPreferences?.getString(AppStrings.prefUserId),
       sellerName:
-          AppConstants.sharedPreference?.getString(AppStrings.prefUserName),
+          AppConstants.sharedPreferences?.getString(AppStrings.prefUserName),
       productname: nameController.text.trim(),
       productcategory: categoryController.selectedCategory.value,
       productprice: double.tryParse(priceController.text.trim()),

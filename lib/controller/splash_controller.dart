@@ -23,7 +23,6 @@ class SplashController extends GetxController {
   void onInit() {
     // Navigate to the next page based on app logic
     _navigateToNextPage();
-
     _configureUI();
     super.onInit();
   }
@@ -37,15 +36,11 @@ class SplashController extends GetxController {
         () {
           User? currentUser = repository.getCurrentUser();
 
-          if(currentUser==null){
-            print("Bangladesh");
-          }
-          // Determine the next route based on user authentication and onboarding status
+          // If user is logged in, navigate to the main page
           final route =
               currentUser != null
-                  // If user is logged in, navigate to the main page
                   ? RoutesName.mainPage
-                  : (AppConstants.isViewed == 0
+                  : (AppConstants.isOnboardingViewed == false
                       ? RoutesName.onboardingPage
                       : RoutesName.signInPage);
           // Navigate to the determined route and remove splash from history
@@ -56,7 +51,7 @@ class SplashController extends GetxController {
       if (e is AppException) {
         Get.dialog(
           ErrorDialogWidget(
-            icon: AppIcons.warningIcon,
+            icon: AppIcons.warningIconPath,
             title: e.title!,
             content: e.message,
             buttonText: AppStrings.btnOkay,
@@ -76,7 +71,7 @@ class SplashController extends GetxController {
     super.onClose();
   }
 
-  /// Configures the UI settings to make the splash page immersive (fullpage).
+  /// Configures the UI settings to make the splash page immersive (full page).
   void _configureUI() {
     // Hides the status and navigation bars for an immersive experience
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);

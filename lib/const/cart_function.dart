@@ -29,7 +29,7 @@ class CartFunctions {
       for (var i = 0; i < seller.docs.length; i++) {
         FirebaseFirestore.instance
             .collection("seller")
-            .doc(AppConstants.sharedPreference!.getString("uid")!)
+            .doc(AppConstants.sharedPreferences!.getString("uid")!)
             .collection("products")
             .where("productId",
                 whereIn: CartFunctions.separateOrderProductIds(

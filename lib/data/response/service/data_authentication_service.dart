@@ -9,18 +9,13 @@ import '../../../model/profile_model.dart';
 import '../../../res/app_string.dart';
 import 'base_authentication_service.dart';
 
-class DataAuthenticationService extends BaseAuthenticationService {
+class FirebaseAuthenticationService extends BaseAuthenticationService {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
   final _firebaseStorage = FirebaseStorage.instance;
 
-
-
-
   @override
-  User? getCurrentUser() {
-    return _firebaseAuth.currentUser;
-  }
+  User? getCurrentUser() => _firebaseAuth.currentUser;
 
   /// Sign in user with email and password
   @override
@@ -28,7 +23,7 @@ class DataAuthenticationService extends BaseAuthenticationService {
     required String email,
     required String password,
   }) {
-    return  _firebaseAuth.signInWithEmailAndPassword(
+    return _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -56,18 +51,21 @@ class DataAuthenticationService extends BaseAuthenticationService {
     final userId = _firebaseAuth.currentUser?.uid;
     if (userId == null) return false;
 
-    final userDoc = await _firebaseFirestore
-        .collection(AppStrings.collectionSeller)
-        .doc(userId)
-        .get();
+    final userDoc =
+        await _firebaseFirestore
+            .collection(AppStrings.collectionSeller)
+            .doc(userId)
+            .get();
 
     return userDoc.exists;
   }
 
   /// Create a new user document in Firestore using Gmail account
   @override
-  Future<void> createNewUserWithGoogle(
-      {required User user, required ProfileModel profileModel}) async {
+  Future<void> createNewUserWithGoogle({
+    required User user,
+    required ProfileModel profileModel,
+  }) async {
     _firebaseFirestore
         .collection(AppStrings.collectionSeller)
         .doc(user.uid)
@@ -76,12 +74,15 @@ class DataAuthenticationService extends BaseAuthenticationService {
 
   /// Upload user image to Firebase Storage and return its download URL
   @override
-  Future<String> uploadUserImageUrl(
-      {required File file, bool isProfile = false}) async {
+  Future<String> uploadUserImageUrl({
+    required File file,
+    bool isProfile = false,
+  }) async {
     String fileName = "ju_grocery_${DateTime.now().millisecondsSinceEpoch}";
-    final storagePath = isProfile
-        ? "${AppStrings.collectionSeller}/${_firebaseAuth.currentUser!.uid}/profile/$fileName"
-        : "${AppStrings.collectionSeller}/profile/$fileName";
+    final storagePath =
+        isProfile
+            ? "${AppStrings.collectionSeller}/${_firebaseAuth.currentUser!.uid}/profile/$fileName"
+            : "${AppStrings.collectionSeller}/profile/$fileName";
 
     final ref = _firebaseStorage.ref().child(storagePath);
     final uploadTask = ref.putFile(file);
@@ -92,18 +93,20 @@ class DataAuthenticationService extends BaseAuthenticationService {
 
   /// Create a new user with email and password
   @override
-  Future<UserCredential> createUserWithEmilandPassword(
-          {required String email, required String password}) async =>
-      _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+  Future<UserCredential> createUserWithEmilandPassword({
+    required String email,
+    required String password,
+  }) async => _firebaseAuth.createUserWithEmailAndPassword(
+    email: email,
+    password: password,
+  );
 
   /// Upload or update user profile data in Firestore
   @override
-  Future<void> uploadUserProfile(
-      {required ProfileModel profileModel,
-      required String firebaseDocument}) async {
+  Future<void> uploadUserProfile({
+    required ProfileModel profileModel,
+    required String firebaseDocument,
+  }) async {
     await _firebaseFirestore
         .collection(AppStrings.collectionSeller)
         .doc(firebaseDocument)
@@ -120,6 +123,4 @@ class DataAuthenticationService extends BaseAuthenticationService {
   Future<void> signOutApp() async {
     _firebaseAuth.signOut();
   }
-
-
 }

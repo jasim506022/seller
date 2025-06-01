@@ -9,16 +9,16 @@ import 'res/app_string.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await _initializeFirebase(); //Initialize Firebase
-  await _loadSharedPreferences(); // Load shared preferences and onboarding status
-  FirebaseMessaging.onBackgroundMessage( _firebaseMessagingBackgroundHandler);
+  //Initialize Firebase
+  await _initializeFirebase();
+  // Load shared preferences and onboarding status
+  await _loadSharedPreferences();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
-
 }
 
-// Firebase Initialization with error handling
+/// Firebase Initialization with error handling
 Future<void> _initializeFirebase() async {
   try {
     await Firebase.initializeApp();
@@ -27,20 +27,22 @@ Future<void> _initializeFirebase() async {
   }
 }
 
-// Firebase Initialization with error handling
+/// Firebase Initialization with error handling
 Future<void> _loadSharedPreferences() async {
   try {
-    AppConstants.sharedPreference = await SharedPreferences.getInstance();
-
-// Check onboarding status
-    AppConstants.isViewed =
-        AppConstants.sharedPreference!.getInt(AppStrings.prefOnboarding)??0;
+    AppConstants.sharedPreferences = await SharedPreferences.getInstance();
+    // Check onboarding status
+    AppConstants.isOnboardingViewed =
+        AppConstants.sharedPreferences?.getBool(
+          AppStrings.onboardingViewedKey,
+        ) ??
+        false;
   } catch (e) {
     developer.log("Error loading SharedPreferences: $e");
   }
 }
 
-// Handles Firebase background messages
+/// Handles Firebase background messages
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   try {
     developer.log("Background Message Data: ${message.data}");

@@ -3,6 +3,7 @@ class AppStrings {
   ///  // 📌 General App Information
   /// ------------------------------------------------------------------------
 
+  // The display name of the application.
   static const String appName = "JasiVendor";
 
   /// ------------------------------------------------------------------------
@@ -82,6 +83,9 @@ class AppStrings {
   /// ------------------------------------------------------------------------
   /// 🎛️ Button
   /// ------------------------------------------------------------------------
+  static const String btnSkip = "Skip";
+  static const String btnNext = "Next";
+  static const String btnOkay = "Okay";
   static const String btnYes = "Yes";
   static const String btnNo = "No";
   static const String btnAddProductImage = "Add Product Image";
@@ -92,11 +96,8 @@ class AppStrings {
   static const String btnReset = "Reset";
   static const String btnClose = "Close";
   static const String btnSave = 'Save';
-  static const String btnSkip = "Skip";
-  static const String btnNext = "Next";
   static const String btnFacebook = "Facebook";
   static const String btnGmail = "Gmail";
-  static const String btnOkay = "Okay";
   static const String btnEditProfile = "Edit Profile";
   static const String btnCamera = "Camera";
   static const String btnGallery = "Gallery";
@@ -196,7 +197,8 @@ class AppStrings {
       "Product name cannot exceed 100 characters.";
   static const String productNameInvalid =
       "Product name can only contain letters, numbers, and spaces.";
-// Price
+
+  // Price
   static const String emptyPrice = "Please enter a product price.";
   static const String invalidPrice =
       "Invalid price! Please enter a valid numeric value.";
@@ -204,11 +206,13 @@ class AppStrings {
       "Price must be between 0.01 and 1,000,000.";
   static const String invalidPriceFormat =
       "Please enter a valid price with up to two decimal places.";
+
   // Ratting
   static const String emptyRating = "Please enter a rating before submitting.";
   static const String invalidRating =
       "Invalid rating! Please enter a numeric value between 1 and 5.";
   static const String ratingOutOfRange = "Rating must be between 1 and 5.";
+
   // Discount
   static const String emptyDiscount = "Please enter a discount value.";
   static const String invalidDiscount =
@@ -219,18 +223,21 @@ class AppStrings {
   static const String discountOverLimit = "Discount cannot exceed 100%.";
   static const String invalidDiscountFormat =
       "Please enter a valid discount with up to two decimal places.";
+
   //Description
   static const String emptyDescription = "Please enter a product description.";
   static const String descriptionTooShort =
       "Product description must be at least 10 characters long.";
   static const String descriptionTooLong =
       "Product description cannot exceed 1000 characters.";
+
   // Email
   static const String emptyEmail = "Please enter your email address.";
   static const String invalidEmailFormat =
       "Invalid email format! Please enter a valid email.";
   static const String emailTooLong =
       "Email address is too long. Please enter a valid email.";
+
   // Password
   static const String emptyPassword = "Please enter your password.";
   static const String passwordTooShort =
@@ -242,15 +249,18 @@ class AppStrings {
       "Password must contain at least one lowercase letter.";
   static const String passwordNumber =
       "Password must contain at least one number.";
+
   // Confirm Password
   static const String confirmPasswordRequired = "Please confirm your password.";
   static const String passwordMismatch =
       "Passwords do not match. Please re-enter.";
+
   // Name
   static const String emptyName = "Please enter your name.";
   static const String nameTooShort = "Name must be at least 2 characters long.";
   static const String nameTooLong = "Name cannot exceed 50 characters.";
   static const String nameInvalid = "Name can only contain letters and spaces.";
+
   // Address
   static const String emptyAddress = "Please enter your address.";
   static const String addressTooShort =
@@ -277,13 +287,15 @@ class AppStrings {
   static const String categoryProductFirebaseField = "productcategory";
   static const String uIdFirebaseField = "uid";
 
+  /// Key for storing viewed status in SharedPreferences
   static const String prefUserId = "uid";
   static const String prefUserEmail = "email";
   static const String prefUserName = "name";
   static const String prefUserPhone = "phone";
   static const String prefUserProfilePic = "imageurl";
   static const String prefUserEarnings = "earning";
-  static const String prefOnboarding = 'onBoarding';
+  static const String onboardingViewedKey = 'onboarding_viewed';
+  static const String themeStatusKey = "theme_mode";
   static const String available = "available";
   static const String approved = "approved";
   static const String completeStatus = "complete";

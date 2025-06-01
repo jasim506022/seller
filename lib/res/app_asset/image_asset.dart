@@ -2,11 +2,15 @@ class AppImage {
   // App Logo
   static String appLogoImage = "asset/image/logo.png";
 
-  // Onboarding Images
+  /// Path to the splash screen background image used on app launch.
+  static String splashBackgroundImagePath = "asset/image/splash.png";
+
+  // Onboarding images used during the onboarding flow
   static const String onboardingFirstImage = "asset/image/onboard/grocery.png";
   static const String onboardingSecondImage =
       "asset/image/onboard/all_grocery.png";
   static const String onboardingThirdImage = "asset/image/onboard/delivery.png";
+
 
   static String uploadProductImage = "asset/image/additem.png";
   static String allProductImage = "asset/gridicon/addproduct.png";
@@ -15,8 +19,8 @@ class AppImage {
   static String completeOrderImages = "asset/gridicon/complete.png";
   static String error = "asset/empty/empty.png";
   static String singleError = "asset/empty/single.png";
-  // Splash Page Bg
-  static String splashScreenBackground = "asset/image/splash.png";
+
+
 
   // Onboarding Image
   static const String groceryImage = "asset/onboard/grocery.png";

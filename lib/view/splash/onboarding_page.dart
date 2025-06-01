@@ -18,11 +18,12 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the controller that manages onboarding logic and state
     final OnboardingController onboardingController =
         Get.find<OnboardingController>();
-
+    // List of onboarding data (text, images, etc.)
     final List<OnboardModel> onboardingList =
-        OnBoardingListData.getOnboardingData();
+        OnBoardingListData.getOnboardingData;
 
     // Set the status bar style for better visibility
     _configureStatusBar();
@@ -42,18 +43,25 @@ class OnboardingPage extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: PageView.builder(
-            controller: onboardingController.pageController,
-            itemCount: onboardingList.length,
-            onPageChanged: (index) => onboardingController.currentIndex(index),
-            itemBuilder: (context, index) => OnboardingPageContentWidget(
-                onboardingItem: onboardingList[index])),
+          controller: onboardingController.pageController,
+          itemCount: onboardingList.length,
+          onPageChanged: (index) => onboardingController.currentIndex(index),
+          itemBuilder:
+              (context, index) => OnboardingPageContentWidget(
+                onboardModel: onboardingList[index],
+              ),
+        ),
       ),
     );
   }
 
   /// Configures the status bar to have a light background with dark icons.
   void _configureStatusBar() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: AppColors.white, statusBarBrightness: Brightness.dark));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: AppColors.white,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
   }
 }

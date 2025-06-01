@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'binding/initial_binding.dart';
 import 'res/routes/app_routes.dart';
 import 'res/routes/routes_name.dart';
-import 'service/provider/theme_provider.dart';
+import 'service/provider/theme_mode_provider.dart';
 import 'theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,15 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      // Set the design size for responsive layout
       designSize:
-          const Size(450, 851), // Set the design size for responsive layout
+          const Size(450, 851),
       builder: (context, child) => MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => ThemeProvider())],
-        child: Consumer<ThemeProvider>(
+        providers: [ChangeNotifierProvider(create: (_) => ThemeModeProvider())],
+        child: Consumer<ThemeModeProvider>(
           builder: (_, themeProvider, _) {
             return GetMaterialApp(
+              // Set initial bindings (like controllers
               initialBinding: InitialBinding(),
               debugShowCheckedModeBanner: false,
+              // Apply light or dark theme
               theme: AppTheme(isDark: themeProvider.isDarkTheme).build(),
               initialRoute: RoutesName.splashPage,
               getPages: AppRoutes.appRoutes(),

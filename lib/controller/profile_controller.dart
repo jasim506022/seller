@@ -154,7 +154,7 @@ class ProfileController extends GetxController {
 
   /// **Stores user profile locally in shared preferences.**
   Future<void> _storeProfileLocally(ProfileModel profileModel) async {
-    var prefs = AppConstants.sharedPreference;
+    var prefs = AppConstants.sharedPreferences;
     final prefsTasks = [
       prefs!.setString(AppStrings.prefUserId, profileModel.uid!),
       prefs.setString(AppStrings.prefUserEmail, profileModel.email!),
@@ -237,7 +237,7 @@ class ProfileController extends GetxController {
     if (error is AppException) {
       Get.dialog(
         ErrorDialogWidget(
-          icon: AppIcons.warningIcon,
+          icon: AppIcons.warningIconPath,
           title: error.title!,
           content: error.message,
           buttonText: AppStrings.btnOkay,
@@ -272,7 +272,7 @@ class ProfileController extends GetxController {
         content: AppStrings.doYouwantSignoutMessage,
         onConfirmPressed: () async {
           try {
-            final prefs = AppConstants.sharedPreference!;
+            final prefs = AppConstants.sharedPreferences!;
             await prefs.setString(AppStrings.prefUserProfilePic, "");
             await prefs.setString(AppStrings.prefUserName, "");
             await prefs.setString(AppStrings.prefUserEmail, "");

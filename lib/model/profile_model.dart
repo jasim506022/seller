@@ -41,15 +41,15 @@ class ProfileModel {
     return <String, dynamic>{
       'address': address,
       'earnings':
-          AppConstants.sharedPreference!.getDouble(AppStrings.prefUserEarnings),
+          AppConstants.sharedPreferences!.getDouble(AppStrings.prefUserEarnings),
       'email':
-          AppConstants.sharedPreference!.getString(AppStrings.prefUserEmail),
+          AppConstants.sharedPreferences!.getString(AppStrings.prefUserEmail),
       'imageurl': imageurl,
       'name': name,
       'phone': phone,
       'token': token,
       'status': AppStrings.approved,
-      'uid': AppConstants.sharedPreference!.getString(AppStrings.prefUserId),
+      'uid': AppConstants.sharedPreferences!.getString(AppStrings.prefUserId),
     };
   }
 

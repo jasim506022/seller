@@ -22,7 +22,7 @@ class DataProfileService extends BaseProfileService {
   Future<void> updateProfile({required Map<String, dynamic> map}) async {
     _firebaseFirestore
         .collection(AppStrings.collectionSeller)
-        .doc(AppConstants.sharedPreference?.getString(AppStrings.prefUserId))
+        .doc(AppConstants.sharedPreferences?.getString(AppStrings.prefUserId))
         .update(map);
   }
 }

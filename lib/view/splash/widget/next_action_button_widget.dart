@@ -5,7 +5,7 @@ import '../../../res/app_function.dart';
 import '../../../res/apps_color.dart';
 import '../../../res/apps_text_style.dart';
 
-/// A reusable button widget with an action and an arrow icon.
+/// Button with text and arrow icon that triggers an action when tapped.
 class NextActionButtonWidget extends StatelessWidget {
   const NextActionButtonWidget({
     super.key,
