@@ -6,7 +6,7 @@ import '../../../model/product_model.dart';
 import '../../../res/app_constants.dart';
 import '../../../res/app_string.dart';
 import '../../../res/apps_text_style.dart';
-import '../../../res/network_utilis.dart';
+import '../../../res/network_utils.dart';
 import '../../../res/routes/routes_name.dart';
 
 /// A widget that displays a popup menu with product actions (**Delete, Update**).

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:seller/res/network_utilis.dart';
+import 'package:seller/res/network_utils.dart';
 
 import '../../../controller/manage_product_controller.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../res/apps_color.dart';
 import '../res/apps_text_style.dart';
-import '../res/network_utilis.dart';
+import '../res/network_utils.dart';
 
 /// A reusable widget that displays rich text with a tappable highlighted portion.
 ///

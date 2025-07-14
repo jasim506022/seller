@@ -3,15 +3,18 @@ import 'package:seller/res/app_function.dart';
 import '../../data/response/service/profile_menu_item_list_data.dart';
 import '../../res/app_string.dart';
 import '../../res/apps_color.dart';
-import '../../res/network_utilis.dart';
+import '../../res/network_utils.dart';
 import 'package:get/get.dart';
 import '../../controller/profile_controller.dart';
 import 'widget/profile_option_tile_widget.dart';
 import 'widget/profile_header_widget.dart';
 import 'widget/theme_toggle_switch_widget.dart';
 
-/// This screen displays the **user profile**, including:
-/// Uses `ProfileController` for managing profile-related actions.
+/// This Screen display the ** user profile ** section
+///
+/// it show user details, provide menu option
+/// allows theme switching, and includes sign-out action
+/// user 'Profile Controller' for managing profile-related actions
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -20,14 +23,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  /// Controller for handling Profile-related logic
+  // Retrieve the 'Profile Controller' instance using Getx for managing profile data
   late final ProfileController profileController;
 
   @override
   void initState() {
-    // Get the `ProfileController` instance for managing Profile.
-    profileController = Get.find<ProfileController>();
     super.initState();
+    // Initialize the controller after widget creation
+    profileController = Get.find<ProfileController>();
   }
 
   @override
@@ -37,9 +40,10 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text(AppStrings.profileTitle),
         actions: [
           IconButton(
+            // Show a placeholder toast message for future settings feature
             onPressed:
                 () => AppsFunction.flutterToast(
-                  msg: "Feature Coming Soon?...........",
+                  msg: AppStrings.featureComingToast,
                 ),
             icon: const Icon(Icons.settings_outlined),
           ),
@@ -57,6 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _buildProfileMenuItems(),
                 // Allows switching between dark and light themes
                 const ThemeToggleSwitchWidget(),
+                // Sign-out option with trailing icon hidden
                 ProfileMenuItemTileWidget(
                   hasTrailingIcon: false,
                   icon: Icons.exit_to_app,
@@ -76,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  /// **Builds the list of profile menu items dynamically.**
+  /// Builds the list of profile menu items dynamically.
   ///
   /// - Iterates over `ProfileMenuItemListData.profileMenuItems` to generate menu options.
   /// - Navigates to the selected menu item's route.
@@ -106,3 +111,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+/*
+1. How print list data on Map;
+2.
+ */

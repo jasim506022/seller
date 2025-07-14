@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../res/apps_color.dart';
 import '../res/apps_text_style.dart';
-import '../res/network_utilis.dart';
+import '../res/network_utils.dart';
 
 /// A customizable primary button with internet connectivity check.
 /// Ensures the action is only performed when the device is online.

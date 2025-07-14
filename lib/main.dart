@@ -7,6 +7,21 @@ import 'my_app.dart';
 import 'res/app_constants.dart';
 import 'res/app_string.dart';
 
+
+/// Handles Firebase background messages
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  try {
+    developer.log("Background Message Data: ${message.data}");
+    if (message.notification != null) {
+      developer.log("Title: ${message.notification?.title}");
+      developer.log("Body: ${message.notification?.body}");
+    }
+  } catch (e) {
+    developer.log("Error handling background message: $e");
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Initialize Firebase
@@ -42,15 +57,4 @@ Future<void> _loadSharedPreferences() async {
   }
 }
 
-/// Handles Firebase background messages
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  try {
-    developer.log("Background Message Data: ${message.data}");
-    if (message.notification != null) {
-      developer.log("Title: ${message.notification?.title}");
-      developer.log("Body: ${message.notification?.body}");
-    }
-  } catch (e) {
-    developer.log("Error handling background message: $e");
-  }
-}
+

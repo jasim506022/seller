@@ -94,6 +94,7 @@ class AppsTextStyle {
     fontWeight: FontWeight.w700,
   );
 
+  // user it for title
   static TextStyle get largeBold => GoogleFonts.poppins(
     fontSize: 17.sp,
     color: theme.primaryColor,

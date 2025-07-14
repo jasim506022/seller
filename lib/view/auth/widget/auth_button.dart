@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:seller/res/network_utilis.dart';
+import 'package:seller/res/network_utils.dart';
 
 import '../../../../../res/apps_text_style.dart';
 import '../../../controller/loading_controller.dart';

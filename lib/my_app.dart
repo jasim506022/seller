@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:seller/service/home_page_test.dart';
 
 import 'binding/initial_binding.dart';
 import 'res/routes/app_routes.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme(isDark: themeProvider.isDarkTheme).build(),
               initialRoute: RoutesName.splashPage,
               getPages: AppRoutes.appRoutes(),
+
             );
           },
         ),

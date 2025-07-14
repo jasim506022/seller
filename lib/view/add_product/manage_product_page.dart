@@ -34,7 +34,8 @@ class _ManageProductPageState extends State<ManageProductPage> {
   void initState() {
     // Retrieve arguments passed to the page
     final arguments = Get.arguments;
-    isEditMode = arguments[AppStrings.isUpdateArgument] ?? false;
+    // isEditMode = arguments[AppStrings.isUpdateArgument] ?? false;
+    isEditMode = arguments != null && arguments[AppStrings.isUpdateArgument] == true;
 
     // Get the `ManageProductController` instance for managing AddProduct.
     manageProductController = Get.find<ManageProductController>();
@@ -46,6 +47,7 @@ class _ManageProductPageState extends State<ManageProductPage> {
       // Update the fields of the form with existing product data
       manageProductController.updateProductsFields(productModel);
     }
+
     super.initState();
   }
 

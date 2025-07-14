@@ -101,6 +101,8 @@ class AuthRepository {
     }
   }
 
+
+  /// Signs the user out of the application
   Future<void> signOut() async {
     try {
       await _authService.signOutApp();

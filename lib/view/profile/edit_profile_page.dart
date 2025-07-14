@@ -4,7 +4,7 @@ import '../../model/profile_model.dart';
 import '../../res/app_function.dart';
 import '../../res/app_string.dart';
 import '../../res/apps_color.dart';
-import '../../res/network_utilis.dart';
+import '../../res/network_utils.dart';
 
 import '../../res/validator.dart';
 import '../../widget/phone_number_widget.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../res/app_function.dart';
 import '../../../res/apps_color.dart';
 import '../../../res/apps_text_style.dart';
-import '../../../res/network_utilis.dart';
+import '../../../res/network_utils.dart';
 
 /// A reusable social login button with an icon, label, and customizable background color.
 ///

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:seller/res/network_utilis.dart';
+import 'package:seller/res/network_utils.dart';
 
 import '../../../res/app_function.dart';
 import '../../../res/apps_color.dart';

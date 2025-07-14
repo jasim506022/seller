@@ -11,15 +11,17 @@ import '../../../res/routes/routes_name.dart';
 import '../../../widget/app_button.dart';
 import '../../../widget/user_avatar_widget.dart';
 
-/// A widget that displays the user's profile information in the header.
-/// Includes profile image, name, email, and an "Edit Profile" button.
+/// A widget that display the user's profile header
+///
+/// Show profile image, name, email and an "Edit Profile" Button
+
 class ProfileHeaderWidget extends StatelessWidget {
   const ProfileHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Fetch user profile data
-    final userData = _fetchUserProfile();
+    /// Fetch user profile data from SharedPreference
+    final Map<String, String> userData = _fetchUserProfile();
     return Container(
       height: 153.h,
       width: 1.sw,
@@ -27,14 +29,15 @@ class ProfileHeaderWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Row(
         children: [
-          /// User Profile Avatar
+          // User Profile Avatar
           UserAvatarWidget(
             diameter: 125,
             imageUrl: userData['profileImageUrl']!,
+
           ),
           AppsFunction.horizontalSpacing(30),
 
-          /// Profile Details Section
+          /// Profile Details (name, email, edit button)
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.w),
@@ -70,19 +73,20 @@ class ProfileHeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          // Display user name
+          //  user name
           userData['name']!,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: AppsTextStyle.titleText,
         ),
-        // Display user email
+        //  user email
         Text(
           userData['email']!,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: AppsTextStyle.subTitleTextStyle,
         ),
+        // Edit Profile button
         AppButton(
           onPressed:
               () => Get.toNamed(RoutesName.editProfilePage, arguments: true),
@@ -93,3 +97,7 @@ class ProfileHeaderWidget extends StatelessWidget {
     );
   }
 }
+
+/*
+1. When use this:  Localization support using .tr if you're using GetX for internationalization.
+ */

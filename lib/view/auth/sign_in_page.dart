@@ -10,7 +10,7 @@ import '../../res/app_string.dart';
 import '../../res/apps_color.dart';
 import '../../res/apps_text_style.dart';
 
-import '../../res/network_utilis.dart';
+import '../../res/network_utils.dart';
 import '../../res/routes/routes_name.dart';
 import '../../res/validator.dart';
 
@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
   /// Controller for handling authentication-related logic
   late final AuthController authController;
 
-  // Form key for validation
+  /// Form key for validation
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override

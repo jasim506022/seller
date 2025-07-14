@@ -265,6 +265,11 @@ class ProfileController extends GetxController {
   }
 
   /// Handles user sign-out with a confirmation dialog.
+  ///
+  /// Clears user-related data from shared preferences,
+  /// resets the token on the server, signs the user out,
+  /// disposes of related controllers and repositories,
+  /// and redirects to the Sign In page.
   Future<void> signOut() async {
     await Get.dialog(ShowAlertDialog(
         icon: Icons.delete,
@@ -272,20 +277,23 @@ class ProfileController extends GetxController {
         content: AppStrings.doYouwantSignoutMessage,
         onConfirmPressed: () async {
           try {
+            // Clear user data from shared preferences
             final prefs = AppConstants.sharedPreferences!;
             await prefs.setString(AppStrings.prefUserProfilePic, "");
             await prefs.setString(AppStrings.prefUserName, "");
             await prefs.setString(AppStrings.prefUserEmail, "");
+            // Remove token from backend (if used for push notifications)
             await repository.updateProfile(map: {"token": ""});
+            // Perform sign out from Firebase/Auth service
             await authRepository.signOut();
 
-            /// 👇 Dispose controller and repository
+            // Dispose associated controllers and repositories
             Get.delete<SelectImageController>();
             Get.delete<SelectImageRepository>();
 
+            // Show success toast and navigate to sign-in screen
             AppsFunction.flutterToast(
                 msg: AppStrings.successfullySignedOutToast);
-
             Get.offAllNamed(RoutesName.signInPage);
           } catch (e) {
             AppsFunction.handleException(e);

@@ -119,6 +119,7 @@ class FirebaseAuthenticationService extends BaseAuthenticationService {
     _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
+  /// Signs the user out of the application
   @override
   Future<void> signOutApp() async {
     _firebaseAuth.signOut();

@@ -140,6 +140,8 @@ class AppStrings {
       "Permission denied for notifications.";
   static const String fcmTokenErrorToast = "Error retrieving FCM token:";
 
+  static const String featureComingToast =  "Settings feature coming soon.";
+
   /// ------------------------------------------------------------------------
   /// 🔢 Form Field Labels
   /// -----------------------------------------------------------------------

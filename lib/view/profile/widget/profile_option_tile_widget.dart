@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../res/apps_text_style.dart';
 
-/// **ProfileMenuItemTile**
+/// A reusable title for profile menu option
 ///
-/// A reusable **list tile widget** used in the profile menu to display different options.
-/// - Handles **tap actions** for navigation or other interactions.
+/// Displays an icon, title, and optional trailing arrow.
+/// Handles tap actions for navigation or other interactions.
 class ProfileMenuItemTileWidget extends StatelessWidget {
   const ProfileMenuItemTileWidget({
     super.key,
@@ -24,23 +24,23 @@ class ProfileMenuItemTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultColor = iconColor ?? Theme.of(context).primaryColor;
+    final Color effectiveIconColor = iconColor ?? Theme.of(context).primaryColor;
     return ListTile(
       onTap: onTap,
-      leading: Icon(icon, color: defaultColor),
+      leading: Icon(icon, color: effectiveIconColor),
       title: Text(
         title,
-        style: AppsTextStyle.largeBold.copyWith(color: defaultColor),
+        style: AppsTextStyle.largeBold.copyWith(color: effectiveIconColor),
       ),
 
       /// **Trailing Arrow (Optional)**
       trailing:
           hasTrailingIcon
-              ? IconButton(
+              ?  IconButton(
                 onPressed: onTap,
                 icon: const Icon(Icons.arrow_forward_ios),
               )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
     );
   }
 }
