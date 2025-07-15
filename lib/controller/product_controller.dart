@@ -10,7 +10,7 @@ import '../res/app_function.dart';
 import '../res/app_string.dart';
 import '../res/routes/routes_name.dart';
 import '../widget/error_dialog_widget.dart';
-import '../widget/show_alert_dialog.dart';
+import '../widget/app_alert_dialog.dart';
 import 'category_manager_controller.dart';
 
 /// **ProductController**
@@ -47,7 +47,7 @@ class ProductController extends GetxController {
   /// - [onDeleted] : Optional callback executed after successful deletio
   Future<void> showDeleteProductDialog({required String productId}) async {
     Get.dialog(
-      ShowAlertDialog(
+      AppAlertDialog(
         title: AppStrings.areYouWantDeleteTitle,
         content: AppStrings.deleteMessage,
         onConfirmPressed: () async {

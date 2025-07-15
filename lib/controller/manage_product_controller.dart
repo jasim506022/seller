@@ -14,7 +14,7 @@ import '../res/app_constants.dart';
 import '../res/app_function.dart';
 import '../res/routes/routes_name.dart';
 import '../widget/error_dialog_widget.dart';
-import '../widget/show_alert_dialog.dart';
+import '../widget/app_alert_dialog.dart';
 import 'category_manager_controller.dart';
 import 'loading_controller.dart';
 
@@ -200,7 +200,7 @@ class ManageProductController extends GetxController {
       return;
     }
     // Show a confirmation dialog before discarding unsaved changes
-    Get.dialog(ShowAlertDialog(
+    Get.dialog(AppAlertDialog(
         icon: Icons.question_mark_rounded,
         title: AppStrings.saveChangesTitle,
         content: AppStrings.saveMessage,

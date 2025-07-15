@@ -126,7 +126,7 @@ class AppStrings {
   static const String minPriceExceedsMaxToast =
       'Minimum price cannot exceed maximum price.';
   static const String deleteSuccessToast = "Delete successfully";
-  static const String phoneNumberPromptMessage = "Please Give your Phone Numer";
+  static const String phoneNumberPromptMessageToast = "Please Give your Phone Number";
   static const String profileUploadToast = "Profile Upload Successfully";
   static const String profileUpdateToast = "Profile Updated Successfully.";
   static const String successfullySignedOutToast = "Successfully signed out.";

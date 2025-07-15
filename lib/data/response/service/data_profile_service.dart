@@ -18,11 +18,19 @@ class DataProfileService extends BaseProfileService {
   }
 
   /// **Update user profile in Firestore**
+  ///
+  /// Updates the Firestore document of the current user with given profile data.
   @override
-  Future<void> updateProfile({required Map<String, dynamic> map}) async {
-    _firebaseFirestore
+  Future<void> updateProfile({
+    required Map<String, dynamic> profileData,
+  }) async {
+    final userId = AppConstants.sharedPreferences?.getString(
+      AppStrings.prefUserId,
+    );
+
+    await _firebaseFirestore
         .collection(AppStrings.collectionSeller)
-        .doc(AppConstants.sharedPreferences?.getString(AppStrings.prefUserId))
-        .update(map);
+        .doc(userId)
+        .update(profileData);
   }
 }

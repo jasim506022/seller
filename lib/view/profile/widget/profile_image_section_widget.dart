@@ -101,7 +101,7 @@ class ProfileImageSectionWidget extends StatelessWidget {
   /// - Otherwise, loads the **default profile image URL**.
   Widget _buildImageWidget(ProfileController profileController) {
     final selectedImage =
-        profileController.selectImageController.selectPhoto.value;
+        profileController.imageController.selectPhoto.value;
     return selectedImage == null
         ? FancyShimmerImage(
           imageUrl: imageUrl,

@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'utils.dart';
 import '../data/response/app_data_exception.dart';
 
-import '../widget/show_alert_dialog.dart';
+import '../widget/app_alert_dialog.dart';
 import 'apps_color.dart';
 import 'apps_text_style.dart';
 import 'app_string.dart';
@@ -27,7 +27,7 @@ class AppsFunction {
 
 // Show Back Dialog
   static Future<bool?> showBackDialog() {
-    return Get.dialog(ShowAlertDialog(
+    return Get.dialog(AppAlertDialog(
       icon: Icons.question_mark_rounded,
       title: AppStrings.exitDialogTitle,
       content: AppStrings.confirmExitMessage,

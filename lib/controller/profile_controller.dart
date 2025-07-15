@@ -15,7 +15,7 @@ import '../res/app_function.dart';
 import '../res/app_string.dart';
 import '../res/routes/routes_name.dart';
 import '../widget/error_dialog_widget.dart';
-import '../widget/show_alert_dialog.dart';
+import '../widget/app_alert_dialog.dart';
 import 'loading_controller.dart';
 import 'select_image_controller.dart';
 
@@ -31,12 +31,12 @@ class ProfileController extends GetxController {
   final ProfileRepository repository;
   final AuthRepository authRepository = Get.find<AuthRepository>();
   final LoadingController loadingController = Get.find<LoadingController>();
-  final SelectImageController selectImageController =
+  final SelectImageController imageController =
       Get.find<SelectImageController>();
 
   // Reactive variables for profile data and UI state
   final RxBool isDataChanged = false.obs;
-  final RxString image = "".obs;
+  final RxString profileImage = "".obs;
 
   // TextEditingControllers for profile fields
   final TextEditingController nameController = TextEditingController();
@@ -54,36 +54,44 @@ class ProfileController extends GetxController {
       nameController,
       addressController,
       phoneController,
-      emailController
+      emailController,
     ]) {
       controller.dispose();
     }
     // Reset observables to their initial states
     isDataChanged(false);
-    image.value = "";
+    profileImage.value = "";
     super.onClose();
   }
 
-  /// **Updates user profile information in Firestore.**
+  /// Updates the user profile information in Firestore.
+  ///
+  /// Validates the phone number, uploads a new profile image if selected,
+  /// updates the profile data in the database, and handles loading state.
+  /// Shows feedback to the user and navigates to the main page upon success.
   Future<void> updateProfile() async {
     if (phoneController.text.trim().isEmpty) {
-      AppsFunction.flutterToast(msg: AppStrings.phoneNumberPromptMessage);
+      AppsFunction.flutterToast(msg: AppStrings.phoneNumberPromptMessageToast);
       return;
     }
 
     try {
       loadingController.setLoading(true);
 
-      // Upload new profile image if a new one is selected
-      if (selectImageController.selectPhoto.value != null) {
-        image.value = await authRepository.uploadUserImage(
-            file: selectImageController.selectPhoto.value!, isProfile: true);
+      // Upload new profile image if selected
+      final selectedPhoto = imageController.selectPhoto.value;
+      if (selectedPhoto != null) {
+        profileImage.value = await authRepository.uploadUserImage(
+          file: selectedPhoto,
+          isProfile: true,
+        );
       }
 
-      // Update profile in database
+      // Update user profile in database
       await repository.updateProfile(
-          map: _buildProfileModel().toMapProfileEdit());
-      // Navigate to main page and show success message
+        profileData: _buildProfileModel().toMapProfileEdit(),
+      );
+      // Navigate and notify
       Get.offAllNamed(RoutesName.mainPage, arguments: 3);
       AppsFunction.flutterToast(msg: AppStrings.profileUpdateToast);
     } catch (e) {
@@ -93,23 +101,20 @@ class ProfileController extends GetxController {
     }
   }
 
-  /// **Creates an updated ProfileModel from text fields.**
+  /// Creates a ProfileModel instance with trimmed values from text controllers and profile image.
+  ///
   ProfileModel _buildProfileModel() {
     return ProfileModel(
       address: addressController.text.trim(),
       phone: phoneController.text.trim(),
       name: nameController.text.trim(),
-      imageurl: image.value,
+      imageurl: profileImage.value,
     );
   }
 
   /// **Adds listeners to detect profile field changes.**
   void addChangeListener(ProfileModel profile) {
-    final controllers = [
-      nameController,
-      phoneController,
-      addressController,
-    ];
+    final controllers = [nameController, phoneController, addressController];
 
     for (var textField in controllers) {
       textField.addListener(() {
@@ -125,36 +130,51 @@ class ProfileController extends GetxController {
         addressController.text.trim() != profile.address;
   }
 
-  /// **Fetches user profile from Firestore and updates UI.**
-  Future<DocumentSnapshot<Map<String, dynamic>>> fetchUserProfile() async {
+  /// Fetches the user profile from Firestore and optionally updates local state.
+  ///
+  /// If [applyLocally] is true and the user's status is approved,
+  /// it stores the profile locally, populates form fields, and updates the FCM token.
+  ///
+  Future<DocumentSnapshot<Map<String, dynamic>>> fetchUserProfile({
+    bool applyLocally = true,
+  }) async {
     try {
-      var snapshot = await repository.fetchUserProfile();
+      var userSnapshot = await repository.fetchUserProfile();
 
-      /// Ensure snapshot contains data before proceeding
-      var data = snapshot.data()!;
+      if (!applyLocally) return userSnapshot;
+        // Ensure snapshot contains data before proceeding
+        var data = userSnapshot.data()!;
 
-      /// Convert Firestore data into `ProfileModel`
-      var profileModel = ProfileModel.fromMap(data);
+        // Convert Firestore data into `ProfileModel`
+        var profile = ProfileModel.fromMap(data);
 
-      /// Only proceed if user status is **approved**.
-      if (profileModel.status == AppStrings.approved) {
-        await _storeProfileLocally(profileModel);
-        _populateTextFields(profileModel);
+        // Only proceed if user status is **approved**.
+        if (profile.status == AppStrings.approved) {
+          await _storeProfileLocally(profile);
+          _populateTextFields(profile);
 
-        /// Update Firebase Cloud Messaging (FCM) token
-        var token = await fetchFCMToken();
-        await repository.updateProfile(map: {"token": token});
+          // Update Firebase Cloud Messaging (FCM) token
+          var token = await _fetchFCMToken();
+          await repository.updateProfile(profileData: {"token": token});
       }
-      return snapshot;
+        else{
+
+        }
+
+      return userSnapshot;
     } catch (e) {
       _handleError(e);
       rethrow;
     }
   }
 
-  /// **Stores user profile locally in shared preferences.**
+  /// Stores the user's profile data locally using SharedPreferences.
+  ///
+  /// Saves fields such as UID, email, name, image URL, phone, and earnings.
+  /// Uses [Future.wait] to execute all preference writes concurrently.
   Future<void> _storeProfileLocally(ProfileModel profileModel) async {
-    var prefs = AppConstants.sharedPreferences;
+    final prefs = AppConstants.sharedPreferences;
+
     final prefsTasks = [
       prefs!.setString(AppStrings.prefUserId, profileModel.uid!),
       prefs.setString(AppStrings.prefUserEmail, profileModel.email!),
@@ -162,30 +182,36 @@ class ProfileController extends GetxController {
       prefs.setString(AppStrings.prefUserProfilePic, profileModel.imageurl!),
       prefs.setString(AppStrings.prefUserPhone, profileModel.phone!),
       prefs.setDouble(
-          AppStrings.prefUserEarnings, profileModel.earnings!.toDouble()),
+        AppStrings.prefUserEarnings,
+        profileModel.earnings!.toDouble(),
+      ),
     ];
 
     await Future.wait(prefsTasks);
   }
 
-  /// **Updates UI text fields with user profile data.**
+  /// Populates UI input fields with values from the given [ProfileModel].
+  ///
+  /// Sets the text of name, address, phone, and email controllers.
   void _populateTextFields(ProfileModel profileModel) {
     nameController.text = profileModel.name ?? '';
     addressController.text = profileModel.address ?? '';
     phoneController.text = profileModel.phone ?? '';
     emailController.text = profileModel.email ?? '';
-    image.value = profileModel.imageurl ?? '';
+    profileImage.value = profileModel.imageurl ?? '';
   }
 
   /// **Handles back navigation, prompting to save changes if necessary.**
-  Future<void> handleBackNavigation(bool didPop) async {
-    if (didPop) return; // If the user already popped, exit
+  ///
+  Future<void> handleBackPressed(bool alreadyPopped) async {
+    if (alreadyPopped) return;
 
     if (!isDataChanged.value) {
-      Get.back(); // Simply navigate back if no changes
+      Get.back();
       return;
     }
-    Get.dialog(ShowAlertDialog(
+    Get.dialog(
+      AppAlertDialog(
         icon: Icons.question_mark_rounded,
         title: AppStrings.saveChangesTitle,
         content: AppStrings.saveMessage,
@@ -193,28 +219,34 @@ class ProfileController extends GetxController {
           Get.close(2);
           resetInputs();
         },
-        onConfirmPressed: () => Get.back()));
+        onConfirmPressed: () => Get.back(),
+      ),
+    );
   }
 
   /// **Resets input fields and profile image selection.*
+  ///
   void resetInputs() {
     // Clear all text controllers
-    for (var controller in [
+    final controllers = [
       nameController,
       phoneController,
       emailController,
       addressController,
-    ]) {
-      controller.text = '';
+    ];
+
+    for (final controller in controllers) {
+      controller.clear();
+      ; // Why not use  controller.text = ''
     }
     // Reset selected image
-    selectImageController.selectPhoto.value = null;
+    imageController.selectPhoto.value = null;
     // Reset data change flag
     isDataChanged.value = false;
   }
 
   /// **Fetches Firebase Cloud Messaging (FCM) token.**
-  Future<String?> fetchFCMToken() async {
+  Future<String?> _fetchFCMToken() async {
     try {
       // Request permission for iOS devices
       NotificationSettings settings =
@@ -252,13 +284,16 @@ class ProfileController extends GetxController {
     // If the app screen was already popped, do nothing.
     if (didPop) return;
 
-    final bool shouldPop = await Get.dialog<bool>(ShowAlertDialog(
-          icon: Icons.question_mark_rounded,
-          title: AppStrings.exitDialogTitle,
-          content: AppStrings.confirmExitMessage,
-          onConfirmPressed: () => Get.back(result: true),
-          onCancelPressed: () => Get.back(result: false),
-        )) ??
+    final bool shouldPop =
+        await Get.dialog<bool>(
+          AppAlertDialog(
+            icon: Icons.question_mark_rounded,
+            title: AppStrings.exitDialogTitle,
+            content: AppStrings.confirmExitMessage,
+            onConfirmPressed: () => Get.back(result: true),
+            onCancelPressed: () => Get.back(result: false),
+          ),
+        ) ??
         false;
     // Exit the app if the user confirmed.
     if (shouldPop) SystemNavigator.pop();
@@ -271,7 +306,8 @@ class ProfileController extends GetxController {
   /// disposes of related controllers and repositories,
   /// and redirects to the Sign In page.
   Future<void> signOut() async {
-    await Get.dialog(ShowAlertDialog(
+    await Get.dialog(
+      AppAlertDialog(
         icon: Icons.delete,
         title: AppStrings.signOutLabel,
         content: AppStrings.doYouwantSignoutMessage,
@@ -283,7 +319,7 @@ class ProfileController extends GetxController {
             await prefs.setString(AppStrings.prefUserName, "");
             await prefs.setString(AppStrings.prefUserEmail, "");
             // Remove token from backend (if used for push notifications)
-            await repository.updateProfile(map: {"token": ""});
+            await repository.updateProfile(profileData: {"token": ""});
             // Perform sign out from Firebase/Auth service
             await authRepository.signOut();
 
@@ -293,15 +329,17 @@ class ProfileController extends GetxController {
 
             // Show success toast and navigate to sign-in screen
             AppsFunction.flutterToast(
-                msg: AppStrings.successfullySignedOutToast);
+              msg: AppStrings.successfullySignedOutToast,
+            );
             Get.offAllNamed(RoutesName.signInPage);
           } catch (e) {
             AppsFunction.handleException(e);
           }
-        }));
+        },
+      ),
+    );
   }
 }
-
 
 /*
 controller.text = ''; // Use `text = ''` instead of `clear()`
@@ -315,5 +353,15 @@ how double to num
 #: Why use Final (already)
 #:     [nameController, addressController, phoneController, emailController].forEach((c) => c.dispose());
 
+2.
+if (!isDataChanged.value) {
+      Get.back();
+      return;
+    } Understand this code
+    3. 	Fix unclosed /** style to proper triple slash ///
+4. why use final why not use var " final controller"
+5. Change	Why
+final used instead of var	Prefer final when value won’t change → improves immutability and clarity.
+6. Understand Token
 */
-
+ */

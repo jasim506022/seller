@@ -53,7 +53,11 @@ class AuthRepository {
     }
   }
 
-  /// Uploads a user image to Firebase Storage and returns the URL.
+  ///  Uploads a user image to Firebase Storage and returns the download URL.
+  ///
+  /// Takes a [file] to upload, and an optional [isProfile] flag to specify
+  /// if the image is a profile picture. Delegates the actual upload to
+  /// [_authService.uploadUserImageUrl].
   Future<String> uploadUserImage(
       {required File file, bool isProfile = false}) async {
     try {

@@ -7,10 +7,15 @@ import '../res/app_string.dart';
 import '../res/apps_color.dart';
 import 'outlined_text_button.dart';
 
-// Modify
-/// A customizable alert dialog widget with a title, content, and action buttons.
-class ShowAlertDialog extends StatelessWidget {
-  const ShowAlertDialog({
+
+
+
+/// A reusable, customizable alert dialog widget with:
+/// - A title and an icon in the header.
+/// - Content text message.
+/// - Two action buttons: Confirm and Cancel with customizable colors and callbacks.
+class AppAlertDialog extends StatelessWidget {
+  const AppAlertDialog({
     super.key,
     required this.title,
     required this.content,
@@ -58,7 +63,9 @@ class ShowAlertDialog extends StatelessWidget {
     );
   }
 
-  /// Builds the action buttons for the dialog.
+  /// Builds the list of action buttons: Confirm and Cancel.
+  /// Confirm button triggers [onConfirmPressed].
+  /// Cancel button triggers [onCancelPressed] or defaults to closing the dialog.
   List<Widget> _buildActionButtons() {
     return [
       OutlinedTextButton(

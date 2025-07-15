@@ -32,7 +32,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  /// Controller for handling Profile-related logic
+  // Retrieve the 'Profile Controller' instance using Getx for managing profile data
   late final ProfileController profileController;
 
   // Indicates whether the page is in edit mode.
@@ -43,12 +43,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
+    super.initState();
     // Retrieves whether the page is in **edit mode** based on navigation arguments.
     isEditMode = Get.arguments ?? false;
 
-    /// Get the `ProfileController` instance for managing Profile.
+    // Initialize the controller after widget creation
     profileController = Get.find<ProfileController>();
-    super.initState();
+
   }
 
   @override
@@ -58,42 +59,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
       onPopInvoked: (didPop) async {
         /// Prevent back navigation while loading.
         if (!profileController.loadingController.loading.value) {
-          profileController.handleBackNavigation(didPop);
+          profileController.handleBackPressed(didPop);
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            isEditMode ? AppStrings.btnEditProfile : AppStrings.aboutTitle,
-          ),
-          actions: [
-            /// Save changes button (only in edit mode).
-            if (isEditMode)
-              IconButton(
-                onPressed: () async {
-                  if (!formKey.currentState!.validate()) return;
-                  await NetworkUtils.executeWithInternetCheck(
-                    action: profileController.updateProfile,
-                  );
-                },
-                icon: const Icon(Icons.cloud_upload),
-              ),
-          ],
-        ),
+        appBar: _buildAppBar(),
         body: ListView(
           children: [
-            // Show loading indicator when updating profile.**
-            Obx(() {
-              return profileController.loadingController.loading.value
+            // Show loading indicator when updating profile.
+            Obx(() =>
+               profileController.loadingController.loading.value
                   ? const LinearProgressIndicator(
                     backgroundColor: AppColors.red,
                   )
-                  : const SizedBox.shrink(); // Use this to avoid rendering anything when not loading.
-            }),
+                  : const SizedBox.shrink() // Use this to avoid rendering anything when not loading.
+            ),
 
-            // **Fetch user profile data.**
+            // Fetch and display user profile data.
             FutureBuilder(
-              future: profileController.fetchUserProfile(),
+              future: profileController.fetchUserProfile(applyLocally: false),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -114,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        // **Profile Image Section**
+                        // Profile image section, editable if in edit mode.
                         ProfileImageSectionWidget(
                           isEditMode: isEditMode,
                           imageUrl: profileModel.imageurl!,
@@ -134,6 +118,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  /// Builds the app bar with a title and save button (only in edit mode).
+  AppBar _buildAppBar() {
+    return AppBar(
+        title: Text(
+          isEditMode ? AppStrings.btnEditProfile : AppStrings.aboutTitle,
+        ),
+        actions: [
+          /// Save changes button (only in edit mode).
+          if (isEditMode)
+            IconButton(
+              onPressed: () async {
+                if (!formKey.currentState!.validate()) return;
+                await NetworkUtils.executeWithInternetCheck(
+                  action: profileController.updateProfile,
+                );
+              },
+              icon: const Icon(Icons.cloud_upload),
+            ),
+        ],
+      );
+  }
+
   /// **Builds the Profile Form**
   ///
   /// - Includes fields for **name, phone, email, and address**.
@@ -150,7 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           CustomTextFormField(
             label: AppStrings.nameLabel,
             onChanged:
-                (value) => profileController.addChangeListener(profileModel),
+                (_) => profileController.addChangeListener(profileModel),
             validator: Validators.validateName,
             controller: profileController.nameController,
             hintText: AppStrings.nameHint,
@@ -176,7 +182,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             label: AppStrings.addressLabel,
             validator: Validators.validateAddress,
             onChanged:
-                (p0) => profileController.addChangeListener(profileModel),
+                (_) => profileController.addChangeListener(profileModel),
             hintText: AppStrings.addressHint,
             controller: profileController.addressController,
             enabled: isEditMode,
@@ -186,4 +192,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 }
+
+/*
+final args = Get.arguments;
+  isEditMode = args is bool ? args : false;
+
+
+ */
 

@@ -72,16 +72,22 @@ class FirebaseAuthenticationService extends BaseAuthenticationService {
         .set(profileModel.toMap());
   }
 
-  /// Upload user image to Firebase Storage and return its download URL
+  /// Uploads a user image to Firebase Storage and returns its download URL.
+  ///
+  /// The image is stored under a path based on whether it's a profile image:
+  /// - If [isProfile] is true: stored in `<sellerId>/profile/`
+  /// - Otherwise: stored in a general profile folder.
   @override
   Future<String> uploadUserImageUrl({
     required File file,
     bool isProfile = false,
   }) async {
-    String fileName = "ju_grocery_${DateTime.now().millisecondsSinceEpoch}";
+    final uid = _firebaseAuth.currentUser!.uid;
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final fileName = "ju_grocery_$timestamp";
     final storagePath =
         isProfile
-            ? "${AppStrings.collectionSeller}/${_firebaseAuth.currentUser!.uid}/profile/$fileName"
+            ? "${AppStrings.collectionSeller}/$uid/profile/$fileName"
             : "${AppStrings.collectionSeller}/profile/$fileName";
 
     final ref = _firebaseStorage.ref().child(storagePath);

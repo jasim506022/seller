@@ -11,7 +11,7 @@ import '../res/app_function.dart';
 import '../res/app_string.dart';
 import '../res/routes/routes_name.dart';
 import '../widget/error_dialog_widget.dart';
-import '../widget/show_alert_dialog.dart';
+import '../widget/app_alert_dialog.dart';
 import 'loading_controller.dart';
 import 'select_image_controller.dart';
 
@@ -87,7 +87,7 @@ class AuthController extends GetxController {
     // Show a confirmation dialog and wait for the user's response.
     final bool shouldPop =
         await Get.dialog<bool>(
-          ShowAlertDialog(
+          AppAlertDialog(
             icon: Icons.question_mark_rounded,
             title: AppStrings.exitDialogTitle,
             content: AppStrings.confirmExitMessage,
